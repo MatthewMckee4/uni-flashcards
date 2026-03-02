@@ -1,4 +1,4 @@
-name = "mathematical_finance"
+name = "Mathematical Finance"
 description = ""
 created = "2026-03-02"
 preamble = ""
@@ -14,4 +14,7 @@ $ P_T = P(1 + r T) $"""
 [[cards]]
 id = "a714b190-7a86-419b-9c0a-904d529ba319"
 front = "What is the definition of compound interest"
-back = "$ P_T = P(1 + r)^T $"
+back = """
+With principal $P$, annual rate $r$, and time $T$ years:
+
+$ P_T = P(1 + r)^T $"""
