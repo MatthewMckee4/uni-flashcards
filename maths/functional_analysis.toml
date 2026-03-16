@@ -1,5 +1,530 @@
 name = "Functional Analysis"
 description = ""
 created = "2026-03-02"
-cards = []
 preamble = ""
+
+[[cards]]
+id = "bc2b6242-87ce-4b7b-b76e-b41b2987b73c"
+front = "What is a normed space?"
+back = """
+A vector space $X$ with a *norm* $|| dot ||$ satisfying:
+
+- (N1) $||x|| >= 0$
+- (N2) $||x|| = 0 <==> x = 0$
+- (N3) $||alpha x|| = |alpha| ||x||$
+- (N4) $||x + y|| <= ||x|| + ||y||$ (triangle inequality)"""
+
+
+[[cards]]
+id = "8685c360-f5af-4118-bf9a-c10d6a30895a"
+front = "What is a Banach space?"
+back = "A *complete* normed space, i.e. a normed space in which every Cauchy sequence converges."
+
+
+[[cards]]
+id = "626497ff-2fd4-49e9-a5c9-a5436a0e5193"
+front = "What is the reverse triangle inequality?"
+back = "$ abs(||y|| - ||x||) <= ||y - x|| $"
+
+
+[[cards]]
+id = "20e6bf3b-63f2-4e29-b984-8840d7da10ed"
+front = "What is a Schauder basis?"
+back = """
+A sequence $(e_n)$ in a normed space $X$ such that for every $x in X$ there is a unique sequence of scalars $(alpha_n)$ with
+
+$ ||x - (alpha_1 e_1 + dots.c + alpha_n e_n)|| -> 0 $"""
+
+
+[[cards]]
+id = "533b876e-18d7-4a04-8d80-c4af1ff3245d"
+front = "What is the relationship between absolute convergence and completeness?"
+back = "In a normed space, absolute convergence ($sum ||x_k||$ converges) implies convergence ($sum x_k$ converges) *if and only if* the space is complete."
+
+
+[[cards]]
+id = "e887fa33-79e5-4621-88cb-20235f1baba8"
+front = "When is a subspace of a complete metric space complete?"
+back = "A subspace $M$ of a complete metric space $X$ is complete *if and only if* $M$ is closed in $X$. (Theorem 1.4-7)"
+
+
+[[cards]]
+id = "4dd1ddee-dad7-4c57-ba25-0146c537c829"
+front = "What is a bounded linear operator and what is its norm?"
+back = """
+$T: cal(D)(T) -> Y$ is *bounded* if there exists $c$ such that $||T x|| <= c ||x||$ for all $x$. The *operator norm* is:
+
+$ ||T|| = sup_(x != 0) (||T x||) / (||x||) = sup_(||x|| = 1) ||T x|| $"""
+
+
+[[cards]]
+id = "332ef1ec-ffa3-4132-9efb-b475d56dde74"
+front = "State the continuity and boundedness theorem for linear operators (2.7-9)"
+back = """
+For a linear operator $T$ between normed spaces:
+
+(a) $T$ is continuous *if and only if* $T$ is bounded.
+
+(b) If $T$ is continuous at a single point, it is continuous everywhere."""
+
+
+[[cards]]
+id = "30f9c9ce-f24c-4879-99f2-114b55e3bcfa"
+front = "Are all linear operators on finite-dimensional spaces bounded?"
+back = "Yes. If $X$ is finite dimensional, every linear operator on $X$ is bounded. (Theorem 2.7-8)"
+
+
+[[cards]]
+id = "a5426626-5dad-4e77-aa1f-c1131f694da6"
+front = "State the bounded linear extension theorem (2.7-11)"
+back = "If $T: cal(D)(T) -> Y$ is bounded linear with $Y$ a Banach space, then $T$ has a unique bounded linear extension $tilde(T): overline(cal(D)(T)) -> Y$ with $||tilde(T)|| = ||T||$."
+
+
+[[cards]]
+id = "b912d981-8433-48f9-b40d-5d6d20a9e487"
+front = "What is the dual space $X'$?"
+back = """
+The set of all *bounded linear functionals* on a normed space $X$, with norm $||f|| = sup_(||x|| = 1) |f(x)|$.
+
+$X'$ is always a Banach space (whether or not $X$ is)."""
+
+
+[[cards]]
+id = "5286f7d8-59a7-44cd-9858-19c821b4cd1c"
+front = "When is $B(X, Y)$ a Banach space?"
+back = "$B(X, Y)$ is a Banach space whenever $Y$ is a Banach space. (The completeness of $X$ is not required.)"
+
+
+[[cards]]
+id = "51189a55-c816-408e-acb1-10b40a387a67"
+front = "What are the duals of $RR^n$, $l^1$, and $l^p$?"
+back = """
+- $(RR^n)' tilde.equiv RR^n$
+- $(l^1)' tilde.equiv l^infinity$
+- $(l^p)' tilde.equiv l^q$ where $1 / p + 1 / q = 1$ ($1 < p < infinity$)"""
+
+
+[[cards]]
+id = "0e8dfacf-dc35-4cac-a3a1-d02fdb6b6362"
+front = "What are the four axioms of an inner product?"
+back = """
+An inner product $angle.l dot, dot angle.r : X times X -> K$ satisfies:
+
+- (IP1) $angle.l x + y, z angle.r = angle.l x, z angle.r + angle.l y, z angle.r$
+- (IP2) $angle.l alpha x, y angle.r = alpha angle.l x, y angle.r$
+- (IP3) $angle.l x, y angle.r = #math.overline($angle.l y, x angle.r$)$
+- (IP4) $angle.l x, x angle.r >= 0$, with equality iff $x = 0$"""
+
+
+[[cards]]
+id = "c9090e85-f98c-4c64-b7e6-40d89f960827"
+front = "What is a Hilbert space?"
+back = "A *complete* inner product space."
+
+
+[[cards]]
+id = "09fd2ab1-5c7f-4e24-93d9-fcce5318af54"
+front = "State the parallelogram equality"
+back = """
+$ ||x + y||^2 + ||x - y||^2 = 2(||x||^2 + ||y||^2) $
+
+A norm satisfies this iff it comes from an inner product."""
+
+
+[[cards]]
+id = "b2af897d-3c30-4cac-883f-4254b55879d6"
+front = "State the polarization identity"
+back = """
+Recovers the inner product from the norm:
+
+$ angle.l x, y angle.r = 1/4 (||x + y||^2 - ||x - y||^2) $ (real case)
+
+$ angle.l x, y angle.r = 1/4 (||x + y||^2 - ||x - y||^2 + i||x + i y||^2 - i||x - i y||^2) $ (complex case)"""
+
+
+[[cards]]
+id = "b6a5cbae-fa44-4a02-9de1-da9bee6f63e9"
+front = "State the Schwarz inequality"
+back = """
+$ |angle.l x, y angle.r| <= ||x|| ||y|| $
+
+Equality holds iff ${x, y}$ is linearly dependent."""
+
+
+[[cards]]
+id = "59c8967f-d7be-419b-a857-faaf83b291ae"
+front = "Is $l^p$ ($p != 2$) an inner product space?"
+back = "No. The parallelogram equality fails for $l^p$ when $p != 2$. Similarly, $C[a,b]$ with the sup-norm is not an inner product space."
+
+
+[[cards]]
+id = "444e3b0f-5951-4d89-ae82-ff83ab34c996"
+front = "State the projection theorem (3.3-4)"
+back = """
+For any closed subspace $Y$ of a Hilbert space $H$:
+
+$ H = Y plus.circle Y^perp $
+
+Every $x in H$ has a unique decomposition $x = y + z$ with $y in Y$, $z in Y^perp$."""
+
+
+[[cards]]
+id = "963519b7-5875-4cda-8131-ace72e3b23c4"
+front = "What is the minimizing vector theorem (3.3-1)?"
+back = "Let $M != emptyset$ be a *convex complete* subset of an inner product space $X$. For every $x in X$ there exists a *unique* $y in M$ such that $||x - y|| = inf_(tilde(y) in M) ||x - tilde(y)||$."
+
+
+[[cards]]
+id = "b30673e2-40ff-498c-a881-19a84d21ec26"
+front = "What is $Y^perp$ and when does $Y = Y^(perp perp)$?"
+back = """
+$Y^perp = {z in H : angle.l z, v angle.r = 0 "for all" v in Y}$.
+
+$Y^perp$ is always a closed subspace. $Y = Y^(perp perp)$ holds when $Y$ is a *closed subspace* of a Hilbert space."""
+
+
+[[cards]]
+id = "d0908446-ff4f-4ae1-9049-bc76ca3aaf93"
+front = 'When is $"span" M$ dense in a Hilbert space $H$?'
+back = '$"span" M$ is dense in $H$ iff $M^perp = {0}$. (Lemma 3.3-7)'
+
+
+[[cards]]
+id = "52134747-23ab-48e3-9c68-a05a6d148891"
+front = "State the Bessel inequality"
+back = """
+For an orthonormal sequence $(e_k)$ and any $x$ in an inner product space:
+
+$ sum_(k=1)^infinity |angle.l x, e_k angle.r|^2 <= ||x||^2 $
+
+The quantities $angle.l x, e_k angle.r$ are the *Fourier coefficients* of $x$."""
+
+
+[[cards]]
+id = "6a2d6a3c-6c39-42d5-aa8a-b9793dd827b3"
+front = "What is the Gram-Schmidt process?"
+back = """
+Given a linearly independent sequence $(x_j)$, produce an orthonormal sequence $(e_j)$:
+
+$ e_1 = x_1 / (||x_1||), quad v_n = x_n - sum_(k=1)^(n-1) angle.l x_n, e_k angle.r e_k, quad e_n = v_n / (||v_n||) $
+
+with $"span"{e_1, dots, e_n} = "span"{x_1, dots, x_n}$ for every $n$."""
+
+
+[[cards]]
+id = "066dfefc-f61b-4574-9db5-525386765457"
+front = "When does $sum alpha_k e_k$ converge for an orthonormal sequence $(e_k)$ in a Hilbert space?"
+back = """
+$sum alpha_k e_k$ converges iff $sum |alpha_k|^2$ converges. (Theorem 3.5-2)
+
+If it converges to $x$, then $alpha_k = angle.l x, e_k angle.r$."""
+
+
+[[cards]]
+id = "ba95823d-ce91-41c8-9c33-a895fdc9c262"
+front = "What is a total orthonormal set?"
+back = """
+An orthonormal set $M$ whose span is *dense* in $X$. Also called an *orthonormal basis*.
+
+Every Hilbert space $H != {0}$ has a total orthonormal set."""
+
+
+[[cards]]
+id = "05463efb-dab7-42ae-b217-a1a8ecda4a57"
+front = "State the Parseval relation and when it holds"
+back = """
+An orthonormal set $M$ in a Hilbert space $H$ is *total* iff for all $x in H$:
+
+$ sum_k |angle.l x, e_k angle.r|^2 = ||x||^2 $"""
+
+
+[[cards]]
+id = "9bb2cff5-c0bb-44da-b7b0-7c08933f12e9"
+front = "What is the generalised Parseval relation?"
+back = """
+For a total orthonormal set $(e_k)$ in a Hilbert space $H$, for all $x, y in H$:
+
+$ angle.l x, y angle.r = sum_k angle.l x, e_k angle.r #math.overline($angle.l y, e_k angle.r$) $"""
+
+
+[[cards]]
+id = "10d08b3b-0d24-4364-bf64-e246ca34f1a0"
+front = "When are two Hilbert spaces isomorphic?"
+back = "Two Hilbert spaces (both real or both complex) are isomorphic iff they have the same *Hilbert dimension* (the cardinality of any total orthonormal set)."
+
+
+[[cards]]
+id = "8344306a-b57d-4e42-bbd1-62b25afa7e47"
+front = "State the Riesz representation theorem (3.8-1)"
+back = """
+Every bounded linear functional $f$ on a Hilbert space $H$ has a unique representation
+
+$ f(x) = angle.l x, z angle.r $
+
+where $z in H$ depends on $f$ and $||z|| = ||f||$."""
+
+
+[[cards]]
+id = "a19bfe3b-87ae-4979-a7da-95dd10048a37"
+front = "State the Riesz representation theorem for sesquilinear forms (3.8-4)"
+back = """
+For a bounded sesquilinear form $h: H_1 times H_2 -> K$ on Hilbert spaces, there exists a unique bounded linear operator $S: H_1 -> H_2$ with
+
+$ h(x, y) = angle.l S x, y angle.r quad "and" quad ||S|| = ||h|| $"""
+
+
+[[cards]]
+id = "1a03f446-7186-43a1-8b9a-86770f7dc743"
+front = "What is the Hilbert-adjoint operator?"
+back = """
+For a bounded linear $T: H_1 -> H_2$, the *Hilbert-adjoint* $T^*: H_2 -> H_1$ is defined by:
+
+$ angle.l T x, y angle.r = angle.l x, T^* y angle.r quad "for all" x in H_1, y in H_2 $
+
+$T^*$ exists, is unique, is bounded linear, and $||T^*|| = ||T||$."""
+
+
+[[cards]]
+id = "68fc08fc-01a2-4fc3-8233-715863033e49"
+front = "List the key properties of the Hilbert-adjoint operator"
+back = """
+- $(S + T)^* = S^* + T^*$
+- $(alpha T)^* = overline(alpha) T^*$
+- $(T^*)^* = T$
+- $||T^* T|| = ||T T^*|| = ||T||^2$
+- $T^* T = 0 <==> T = 0$
+- $(S T)^* = T^* S^*$"""
+
+
+[[cards]]
+id = "c2ef30c1-5942-438d-bbe5-585b9383d08d"
+front = "Define self-adjoint, unitary, and normal operators"
+back = """
+For bounded linear $T: H -> H$:
+
+- *Self-adjoint* (Hermitian): $T^* = T$
+- *Unitary*: $T$ is bijective and $T^* = T^(-1)$
+- *Normal*: $T T^* = T^* T$
+
+Self-adjoint and unitary operators are both normal."""
+
+
+[[cards]]
+id = "d25a290a-8af2-4825-bb84-e6b02fd9a0a9"
+front = "How does self-adjointness relate to $angle.l T x, x angle.r$?"
+back = """
+(a) If $T = T^*$, then $angle.l T x, x angle.r in RR$ for all $x$.
+
+(b) If $H$ is *complex* and $angle.l T x, x angle.r in RR$ for all $x$, then $T = T^*$.
+
+Part (b) requires $H$ to be complex."""
+
+
+[[cards]]
+id = "05cc3a29-4a1c-4528-9a2b-cbf58541c5d2"
+front = "When is the product of two self-adjoint operators self-adjoint?"
+back = """
+$S T$ is self-adjoint iff $S T = T S$ (i.e. $S$ and $T$ commute).
+
+*Proof:* $(S T)^* = T^* S^* = T S$, so $S T = (S T)^*$ iff $S T = T S$."""
+
+
+[[cards]]
+id = "54cca4ad-665d-48f5-aa31-54e402835dde"
+front = "List the properties of a unitary operator"
+back = """
+For unitary $U: H -> H$:
+
+- $U$ is isometric: $||U x|| = ||x||$
+- $||U|| = 1$
+- $U^(-1) = U^*$ is unitary
+- $U V$ is unitary if $V$ is unitary
+- $U$ is normal
+- On a complex $H$: $T$ is unitary iff $T$ is isometric and surjective"""
+
+
+[[cards]]
+id = "9fb2e82b-c4dc-4572-9dfc-943cd9b3fff0"
+front = "Is an isometric operator always unitary?"
+back = """
+No. An isometric operator may fail to be surjective.
+
+*Example:* The right shift $(xi_1, xi_2, dots) |-> (0, xi_1, xi_2, dots)$ on $l^2$ is isometric but not surjective, hence not unitary."""
+
+
+[[cards]]
+id = "9df6ba6b-1c04-4b54-83c0-f94ba76de5f6"
+front = "For $T: CC^n -> CC^n$ with matrix $A$, what is the matrix of $T^*$?"
+back = """
+$T^*$ has matrix $overline(A)^TT$ (conjugate transpose).
+
+- Self-adjoint $<==>$ $A$ is Hermitian ($overline(A)^TT = A$)
+- Unitary $<==>$ $overline(A)^TT = A^(-1)$
+- Real case: self-adjoint $<==>$ symmetric, unitary $<==>$ orthogonal"""
+
+
+[[cards]]
+id = "916b301e-0c8f-48fd-a3cc-5df87efec150"
+front = "Give four examples of Hilbert spaces"
+back = """
+- $RR^n$ with $angle.l x, y angle.r = sum xi_j eta_j$
+- $CC^n$ with $angle.l x, y angle.r = sum xi_j overline(eta)_j$
+- $L^2[a, b]$ with $angle.l x, y angle.r = integral_a^b x(t) overline(y(t)) dif t$
+- $l^2$ with $angle.l x, y angle.r = sum xi_j overline(eta)_j$"""
+
+
+[[cards]]
+id = "1ebfdc61-f537-4350-a29a-2e44fc2e4a6c"
+front = "Give examples of Banach spaces with their norms"
+back = '''
+- $l^p$: $||x|| = (sum |xi_j|^p)^(1\/p)$
+- $l^infinity$: $||x|| = sup_j |xi_j|$
+- $C[a,b]$: $||x|| = max_(t in [a,b]) |x(t)|$
+- $RR^n$: $||x|| = (sum xi_j^2)^(1\/2)$'''
+
+
+[[cards]]
+id = "03c08246-0840-4a01-ac69-28a312d65f97"
+front = "Is the differentiation operator bounded? Why?"
+back = "No. On the space of polynomials with sup-norm on $[0,1]$, taking $x_n(t) = t^n$ gives $||T x_n|| / ||x_n|| = n -> infinity$, so no bound $c$ exists."
+
+
+[[cards]]
+id = "ae01e19f-9cab-4845-9ff9-dcebef9db984"
+front = 'What is the orthogonal projection onto $Y_n = "span"{e_1, dots, e_n}$?'
+back = """
+For orthonormal ${e_1, dots, e_n}$ and any $x$:
+
+$ y = sum_(k=1)^n angle.l x, e_k angle.r e_k $
+
+Then $x - y perp Y_n$ and $||x||^2 = sum_(k=1)^n |angle.l x, e_k angle.r|^2 + ||x - y||^2$."""
+
+
+[[cards]]
+id = "0186c195-ddc7-4702-b0ab-8fa1608194b2"
+front = "What properties does the orthogonal projection $P: H -> Y$ have?"
+back = """
+For the decomposition $x = y + z$ ($y in Y$, $z in Y^perp$), $P x = y$ is:
+
+- A bounded linear operator
+- Idempotent: $P^2 = P$
+- $Y^perp = cal(N)(P)$ (null space of $P$)"""
+
+
+[[cards]]
+id = "f84afb12-263c-4dbe-9667-e6b5ebce9c8f"
+front = "What does Lemma 3.9-3 say about when $Q = 0$?"
+back = """
+(a) $Q = 0 <==> angle.l Q x, y angle.r = 0$ for all $x, y$.
+
+(b) If $X$ is *complex* and $angle.l Q x, x angle.r = 0$ for all $x$, then $Q = 0$.
+
+Part (b) *fails* for real spaces (e.g. rotation by $pi / 2$ in $RR^2$)."""
+
+
+[[cards]]
+id = "17f5ea26-5f9b-4133-8298-5b9a3868b921"
+front = "Is the limit of self-adjoint operators self-adjoint?"
+back = """
+Yes. If $(T_n)$ are bounded self-adjoint operators with $T_n -> T$ in operator norm, then $T$ is self-adjoint.
+
+*Proof:* $||T - T^*|| <= ||T - T_n|| + ||T_n - T_n^*|| + ||T_n^* - T^*|| = 2||T_n - T|| -> 0$."""
+
+
+[[cards]]
+id = "505d315a-2ddb-4b9d-93a7-1f73d948f952"
+front = "Prove that $||T^* T|| = ||T||^2$"
+back = """
+From $||T x||^2 = angle.l T x, T x angle.r = angle.l T^* T x, x angle.r <= ||T^* T|| ||x||^2$, taking $sup$ over $||x|| = 1$ gives $||T||^2 <= ||T^* T||$.
+
+But $||T^* T|| <= ||T^*|| ||T|| = ||T||^2$.
+
+Hence $||T^* T|| = ||T||^2$."""
+
+
+[[cards]]
+id = "133c3224-1675-41ad-9412-3e2c7bd0b2e3"
+front = "What is a Cauchy sequence and when does it converge?"
+back = """
+$(x_n)$ is *Cauchy* if for every $epsilon > 0$ there is $N$ such that $d(x_m, x_n) < epsilon$ for all $m, n > N$.
+
+Every convergent sequence is Cauchy. The converse holds only in *complete* spaces."""
+
+
+[[cards]]
+id = "cdda8307-5bbe-4d4d-aa4a-169e98986c97"
+front = "What is the continuity criterion for mappings in metric spaces?"
+back = """
+$T: X -> Y$ is continuous at $x_0$ iff $x_n -> x_0$ implies $T x_n -> T x_0$. (Theorem 1.4-8)
+
+For a bounded linear operator: $cal(N)(T)$ is always closed. (Corollary 2.7-10)"""
+
+
+[[cards]]
+id = "a27f7f44-2ec4-4cc9-ab3e-632e84c47917"
+front = "What are the Euler formulas for Fourier coefficients?"
+back = """
+For a $2pi$-periodic function $x$ with Fourier series $a_0 + sum (a_k cos k t + b_k sin k t)$:
+
+$ a_0 = 1/(2pi) integral_0^(2pi) x(t) dif t $
+$ a_k = 1/pi integral_0^(2pi) x(t) cos k t dif t $
+$ b_k = 1/pi integral_0^(2pi) x(t) sin k t dif t $"""
+
+
+[[cards]]
+id = "9166c382-de57-4896-84f2-a07522359228"
+front = "How do you prove the Riesz representation theorem?"
+back = """
+If $f = 0$, take $z = 0$. For $f != 0$: $cal(N)(f)$ is closed with $cal(N)(f)^perp$ containing some $z_0 != 0$. For any $x$, $v = f(x)z_0 - f(z_0)x in cal(N)(f)$, so $angle.l v, z_0 angle.r = 0$ gives:
+
+$ f(x) = (f(z_0)) / (||z_0||^2) angle.l x, z_0 angle.r = angle.l x, z angle.r $
+
+where $z = overline(f(z_0)) / (||z_0||^2) z_0$."""
+
+
+[[cards]]
+id = "56ebbaba-6a63-4ea5-8b29-f419c9e432f6"
+front = "What is a sesquilinear form?"
+back = """
+A mapping $h: X times Y -> K$ that is *linear* in the first argument and *conjugate linear* in the second.
+
+It is *bounded* if $|h(x, y)| <= c ||x|| ||y||$ with norm $||h|| = sup (|h(x,y)|) / (||x|| ||y||)$."""
+
+
+[[cards]]
+id = "704f7692-2228-4378-95b5-7869925eddca"
+front = "What is an incomplete normed space example?"
+back = '''
+$C[0, 1]$ with $||x|| = integral_0^1 |x(t)| dif t$ is *not* complete.
+
+Its completion is $L^1[0, 1]$. More generally, $L^p[a,b]$ is the completion of continuous functions under $||x||_p = (integral_a^b |x(t)|^p dif t)^(1\/p)$.'''
+
+
+[[cards]]
+id = "f4187cb1-efc3-483e-a11f-cc119d3ba2f6"
+front = "What is the completeness proof strategy for sequence spaces?"
+back = """
+General pattern:
+
+1. Construct a candidate limit $x$ (componentwise limits exist since $RR$ and $CC$ are complete)
+2. Prove $x$ is in the space
+3. Prove $x_n -> x$"""
+
+
+[[cards]]
+id = "afdc0279-757a-440e-9840-fc0c09d6b88c"
+front = "State the totality characterisation (Theorem 3.6-2)"
+back = """
+(a) If $M$ is total in $X$, then $x perp M ==> x = 0$.
+
+(b) If $X$ is *complete*, the converse also holds: if $x perp M ==> x = 0$, then $M$ is total."""
+
+
+[[cards]]
+id = "5a7c7cd3-767e-4a65-836e-49b20c181f78"
+front = "What is the relationship between separability and orthonormal sets in Hilbert spaces?"
+back = """
+(a) If $H$ is separable, every orthonormal set in $H$ is *countable*.
+
+(b) If $H$ has a *total* orthonormal sequence, then $H$ is separable."""
+
