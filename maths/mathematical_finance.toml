@@ -11,6 +11,7 @@ With principal $P$, annual rate $r$, and time $T$ years:
 
 $ P_T = P(1 + r T) $"""
 
+
 [[cards]]
 id = "a714b190-7a86-419b-9c0a-904d529ba319"
 front = "What is the definition of compound interest"
@@ -18,3 +19,521 @@ back = """
 With principal $P$, annual rate $r$, and time $T$ years:
 
 $ P_T = P(1 + r)^T $"""
+
+
+[[cards]]
+id = "4542e422-1492-474a-a8f8-997fcc7e18a5"
+front = "What is the Rule of 72?"
+back = """
+The doubling time for compound interest is approximately $72 \\ / r$ years, where $r$ is expressed as a percentage."""
+
+[[cards]]
+id = "f6fd192a-9c0b-443a-aa12-9020b016f6be"
+front = "What is continuous compounding?"
+back = """
+$ P_T = P e^(r T) $
+
+The effective annual rate is $r_\"eff\" = e^r - 1$."""
+
+[[cards]]
+id = "2f8d7ccb-d26b-4f5c-a9ef-790b33263f32"
+front = "What is the effective annual rate with $n$ compounding periods?"
+back = """
+$ r_\"eff\" = (1 + r \\/ n)^n - 1 $
+
+As $n -> infinity$: $r_\"eff\" = e^r - 1$."""
+
+[[cards]]
+id = "0120d53a-2bb2-418a-97b8-436b4a0c5766"
+front = "What is the force of interest?"
+back = """
+For time-varying rate $r(t)$, the accumulated value is:
+
+$ P(t) = P(0) exp(integral_0^t r(s) dif s) $
+
+The force of interest $delta(t) = r(t)$ is the instantaneous rate of growth."""
+
+[[cards]]
+id = "143cee71-c2c5-4dd4-8583-b428530e2ccb"
+front = "What is the mortgage payment formula?"
+back = """
+A loan of $P$ at nominal annual rate $r$ compounded $n$ times per year over $T$ years:
+
+$ A = (P r) \\/ (n (1 - (1 + r \\/ n)^(-T n))) $"""
+
+[[cards]]
+id = "40981495-3886-4871-bf4d-d3537653552b"
+front = "What is the present value of an annuity-immediate?"
+back = """
+$N$ payments of $A$ at rate $i$ per period:
+
+$ \"PV\" = A dot (1 - (1 + i)^(-N)) \\/ i $"""
+
+[[cards]]
+id = "eb2e7705-d0d0-40fb-953a-36400e4f0d4f"
+front = "What is the value of a perpetuity?"
+back = """
+A perpetuity pays $C$ per period forever. Its present value at rate $r$ per period is:
+
+$ V = C \\/ r $"""
+
+[[cards]]
+id = "58cb8bad-c58a-4807-b8af-83da53cfec48"
+front = "What is a zero-coupon bond and how is it priced?"
+back = """
+A ZCB pays only the face value at maturity (no coupons). With face value 1, maturity $T$, and continuously compounded zero rate $z(T)$:
+
+$ P(T) = e^(-z(T) T) $
+
+*Bootstrapping* extracts zero rates from observed bond prices sequentially."""
+
+[[cards]]
+id = "bbd8b5a4-f445-4a4c-96e7-9c6c982e6c26"
+front = "What is the rational forward price for a non-income-generating asset?"
+back = """
+$ F_0 = S_0 e^(r T) $
+
+For an income-generating asset (PV of income $I$): $F_0 = (S_0 - I) e^(r T)$.
+
+For continuous dividend yield $q$: $F_0 = S_0 e^((r - q) T)$."""
+
+[[cards]]
+id = "942ccb3a-b72e-43d1-a3f0-f3e23bd87347"
+front = "How do you prove the rational forward price by arbitrage?"
+back = """
+If $F_0 > S_0 e^(r T)$: borrow $S_0$, buy asset, short forward. At $T$: deliver for $F_0$, repay $S_0 e^(r T)$, profit > 0.
+
+If $F_0 < S_0 e^(r T)$: short sell asset, invest $S_0$, long forward. At $T$: collect $S_0 e^(r T)$, buy asset for $F_0$, profit > 0.
+
+Both contradict no-arbitrage, so $F_0 = S_0 e^(r T)$."""
+
+[[cards]]
+id = "4cf124e8-37c9-4b30-8767-6d3ecb1a41cd"
+front = "What are European call and put option payoffs?"
+back = """
+*European call*: right to buy at strike $X$ at maturity $T$. Payoff: $max{S_T - X, 0}$.
+
+*European put*: right to sell at strike $X$ at $T$. Payoff: $max{X - S_T, 0}$."""
+
+[[cards]]
+id = "92f6ddcb-175f-48fd-9835-a095d2979777"
+front = "What are the bounds on European option prices?"
+back = """
+*Upper bounds*: $pi_C <= S_0$, $pi_P <= X e^(-r T)$.
+
+*Lower bounds*:
+
+$ pi_C >= max{S_0 - X e^(-r T), 0} $
+$ pi_P >= max{X e^(-r T) - S_0, 0} $"""
+
+[[cards]]
+id = "9e6db69e-856d-443d-880b-279550c46bbb"
+front = "State put-call parity for European options"
+back = """
+For European options on a non-dividend-paying asset:
+
+$ pi_C - pi_P = S_0 - X e^(-r T) $
+
+*Proof*: Portfolio A (call + cash $X e^(-r T)$) and Portfolio B (put + share) both pay $max{S_T, X}$ at $T$."""
+
+[[cards]]
+id = "e503c5d7-a72f-4dc6-bf6a-e40493f8f8c7"
+front = "How does put-call parity change with dividends?"
+back = """
+If the asset pays known income with present value $I$:
+
+$ pi_C - pi_P = S_0 - I - X e^(-r T) $
+
+Lower bounds also adjust: $pi_C >= max{S_0 - I - X e^(-r T), 0}$."""
+
+[[cards]]
+id = "883306b4-3ad3-4fa7-a52b-5dcbfccd785b"
+front = "Why should you never early-exercise an American call on a non-dividend-paying asset?"
+back = """
+$pi_(C_A) >= pi_C >= S_0 - X e^(-r T) > S_0 - X$ (since $e^(-r T) < 1$).
+
+Early exercise gives $S_0 - X$, which is *less* than the option's value. So $pi_(C_A) = pi_C$."""
+
+[[cards]]
+id = "dda3489b-72fc-4b71-bf3a-05581148ca55"
+front = "What is the American put-call parity?"
+back = """
+For American options on a non-dividend-paying asset:
+
+$ S_0 - X <= pi_(C_A) - pi_(P_A) <= S_0 - X e^(-r T) $"""
+
+[[cards]]
+id = "26d992d4-d0dc-4867-abff-b1b78959e0b4"
+front = "What is a covered call and a protective put?"
+back = """
+*Covered call*: hold asset + sell call. Payoff: $min{S_T, X}$. Caps upside at $X$ but generates premium.
+
+*Protective put*: hold asset + buy put. Payoff: $max{X, S_T}$. Provides a floor of $X$."""
+
+[[cards]]
+id = "20182053-3a99-46a2-9d67-4c9583d95d2b"
+front = "What is a bull call spread?"
+back = """
+Buy call at $X_1$, sell call at $X_2$ ($X_1 < X_2$). Payoff:
+
+$ V(T) = cases(0 & \"if\" S_T <= X_1, S_T - X_1 & \"if\" X_1 < S_T <= X_2, X_2 - X_1 & \"if\" S_T > X_2) $
+
+Net cost: $pi_(C_1) - pi_(C_2) > 0$."""
+
+[[cards]]
+id = "9d9ef1a7-18e6-46b1-801f-0768466e9c9d"
+front = "What is a straddle?"
+back = """
+Buy call and put at the same strike $X$. Payoff: $|S_T - X|$.
+
+Profits from large price moves in either direction. Similar strategies:
+
+- *Strangle*: OTM call + OTM put (cheaper, needs larger move)
+- *Strap*: 2 calls + 1 put (bullish bias)
+- *Strip*: 1 call + 2 puts (bearish bias)"""
+
+[[cards]]
+id = "c0f51907-4477-4bda-b98e-67839e18ff17"
+front = "What is a butterfly spread?"
+back = """
+Buy calls at $X_1$ and $X_3$, sell 2 calls at $X_2 = (X_1 + X_3) \\/ 2$.
+
+Profits when price stays near $X_2$. Maximum payoff is $X_2 - X_1$ when $S_T = X_2$."""
+
+[[cards]]
+id = "4847998f-2e72-4ebf-97f3-a83114519012"
+front = "What is the setup of the one-period binomial model?"
+back = """
+Two times $t = 0, 1$, two states ${U, D}$.
+
+*Bond*: $B(U) = B(D) = pi_0(1 + r)$.
+
+*Stock*: $S(U) = pi_1 u$, $S(D) = pi_1 d$, with $0 < d <= 1 + r <= u$.
+
+Portfolio $(xi_0, xi_1)$ has value $V_0 = xi_0 pi_0 + xi_1 pi_1$."""
+
+[[cards]]
+id = "928d5a97-f9bc-4b1c-a1a0-4f40a0210e00"
+front = "What are Arrow-Debreu securities?"
+back = """
+$phi^U$ pays 1 in state $U$, 0 in state $D$. $phi^D$ pays 0 in $U$, 1 in $D$.
+
+Any payoff $phi$ with $phi(U) = a$, $phi(D) = b$ can be written $phi = a phi^U + b phi^D$.
+
+Prices: $pi_(phi^U) = (1 + r - d) \\/ ((u - d)(1 + r))$, $pi_(phi^D) = (u - (1 + r)) \\/ ((u - d)(1 + r))$."""
+
+[[cards]]
+id = "6e79528b-cc2e-4a0d-9294-30671e60f5b7"
+front = "What are the risk-neutral probabilities in the binomial model?"
+back = """
+$ tilde(p) = (1 + r - d) \\/ (u - d), quad tilde(q) = (u - (1 + r)) \\/ (u - d) $
+
+Under this measure, the stock's discounted expected value equals its current price:
+
+$ EE(S \\/ (1 + r)) = pi_1 $"""
+
+[[cards]]
+id = "1e918c5f-ebdd-41fe-b184-8584a03570ed"
+front = "What is a sigma-algebra?"
+back = """
+A collection $cal(F)$ of subsets of $Omega$ satisfying:
+
++ $emptyset in cal(F)$
++ Closed under complement: $A in cal(F) => A^c in cal(F)$
++ Closed under countable union: $A_1, A_2, ... in cal(F) => union.big A_n in cal(F)$
+
+Largest: power set $cal(P)(Omega)$. Smallest: ${emptyset, Omega}$."""
+
+[[cards]]
+id = "8d85dba8-d808-4f92-9924-ef170abb8424"
+front = "What is a probability measure?"
+back = """
+A function $P: cal(F) -> [0, 1]$ on a measurable space $(Omega, cal(F))$ satisfying:
+
++ $P(Omega) = 1$, $P(emptyset) = 0$
++ *Countable additivity*: for pairwise disjoint $A_n$:
+
+$ P(union.big_(n=1)^infinity A_n) = sum_(n=1)^infinity P(A_n) $
+
+The triple $(Omega, cal(F), P)$ is a *probability space*."""
+
+[[cards]]
+id = "a76458da-1548-4491-9891-669cb95f77dc"
+front = "What is a random variable?"
+back = """
+A *measurable* function $X: Omega -> RR$. Measurability means for every Borel set $B$:
+
+$ X^(-1)(B) = {omega in Omega : X(omega) in B} in cal(F) $
+
+It suffices to check this for sets of the form $(a, b]$."""
+
+[[cards]]
+id = "22e56a7a-532b-4be8-bff1-be3332db2b2e"
+front = "How is expectation defined?"
+back = """
+$ EE_P (X) = integral_Omega X(omega) dif P(omega) $
+
+For finite $Omega = {omega_1, ..., omega_n}$:
+
+$ EE_P (X) = sum_(i=1)^n X(omega_i) P({omega_i}) $"""
+
+[[cards]]
+id = "a3e104dc-0ec3-4a87-a019-617bfb7cbb6a"
+front = "What is a one-period market model?"
+back = """
+A tuple $(Omega, cal(F), P, overline(pi), overline(S))$ where:
+
+- $(Omega, cal(F), P)$ is a probability space
+- $overline(pi) = (pi_0, ..., pi_d)$ is the price system at $t = 0$
+- $overline(S) = (S^0, ..., S^d)$ are asset values at $t = 1$
+- $S^0(omega) = 1 + r$ for all $omega$ (riskless), $pi_0 = 1$"""
+
+[[cards]]
+id = "725c5de5-11ac-47a9-8891-8fb28f9e5b5f"
+front = "What is an arbitrage portfolio?"
+back = """
+A portfolio $overline(xi)$ satisfying:
+
++ $overline(xi) dot overline(pi) <= 0$ (zero or negative initial cost)
++ $overline(xi) dot overline(S)(omega) >= 0$ $P$-a.s. (non-negative payoff)
++ $P(overline(xi) dot overline(S) > 0) > 0$ (positive payoff with positive probability)
+
+A market is *arbitrage-free* if no such portfolio exists."""
+
+[[cards]]
+id = "d911a5d0-145c-4636-8941-e4e979723d59"
+front = "What is a risk-neutral measure?"
+back = """
+A probability measure $Q$ on $(Omega, cal(F))$ such that for every asset $i$:
+
+$ pi_i = EE_Q (S^i \\/ (1 + r)) $
+
+The discounted expected payoff under $Q$ equals the current price."""
+
+[[cards]]
+id = "353f0c67-cb83-4bba-950b-01401733262e"
+front = "State the First Fundamental Theorem of Asset Pricing (FTAP)"
+back = """
+A one-period market model is *arbitrage-free* if and only if there exists a risk-neutral measure $Q$ with $Q tilde P$ (equivalent to $P$).
+
+Two measures are *equivalent* ($P tilde Q$) iff they have the same nullsets."""
+
+[[cards]]
+id = "a04ee098-474c-47b6-9395-93d47d74ba15"
+front = "Prove the reverse direction of the FTAP"
+back = """
+Suppose $Q tilde P$ is risk-neutral and $overline(xi)$ has $overline(xi) dot overline(pi) <= 0$ and $overline(xi) dot overline(S) >= 0$ $P$-a.s.
+
+Then $EE_Q(overline(xi) dot overline(S)) = (1+r) overline(xi) dot overline(pi) <= 0$.
+
+But $overline(xi) dot overline(S) >= 0$ $Q$-a.s., so $EE_Q >= 0$. Combined: $EE_Q = 0$, forcing $overline(xi) dot overline(S) = 0$ $Q$-a.s. (hence $P$-a.s.). Not an arbitrage."""
+
+[[cards]]
+id = "32fef5dd-8aa7-43f1-9308-b1871ce33aee"
+front = "State the Law of One Price"
+back = """
+In an arbitrage-free market, if two portfolios have the same payoff ($overline(xi) dot overline(S) = overline(eta) dot overline(S)$ $P$-a.s.), they have the same price ($overline(xi) dot overline(pi) = overline(eta) dot overline(pi)$).
+
+*Proof*: By FTAP, use a risk-neutral $Q$: both prices equal $EE_Q(\"payoff\" \\/ (1+r))$."""
+
+[[cards]]
+id = "32c126ef-b432-492a-8e00-a3a98d892dbb"
+front = "What is a security vs a derivative?"
+back = """
+A *security* is a random variable $C: Omega -> RR$ with $0 <= C < infinity$ $P$-a.s.
+
+A *derivative* (contingent claim) has payoff $C(omega) = f(S^0(omega), ..., S^d(omega))$.
+
+A forward ($C = S - K$) is a derivative but not a security (payoff can be negative)."""
+
+[[cards]]
+id = "3ec10f32-d11e-4913-8cfa-48175723473c"
+front = "What is the set of arbitrage-free prices for a security?"
+back = """
+$ Pi(C) = {EE_Q (C \\/ (1 + r)) : Q \"risk-neutral\", Q tilde P, EE_Q |C| < infinity} $
+
+- If $C$ is *replicable*: $Pi(C)$ is a singleton (unique price)
+- If $C$ is *not replicable*: $Pi(C)$ is an open interval"""
+
+[[cards]]
+id = "fe18d169-9144-48f6-9431-793fab77d79d"
+front = "How do you price a contingent claim in the one-period binomial model?"
+back = """
+The unique risk-neutral measure gives:
+
+$ pi_C = (tilde(p) C(U) + tilde(q) C(D)) \\/ (1 + r) $
+
+Replicating portfolio: $xi_1 = (C(U) - C(D)) \\/ (S(U) - S(D))$."""
+
+[[cards]]
+id = "1e1baf83-10de-4dc9-bb03-a9928099e7e2"
+front = "What is a filtration?"
+back = """
+A sequence of $sigma$-algebras $cal(F)_0 subset cal(F)_1 subset ... subset cal(F)_T$ where:
+
+- $cal(F)_0 = {emptyset, Omega}$ (no information)
+- $cal(F)_T = cal(P)(Omega)$ (full information)
+
+$cal(F)_t$ contains events depending only on the first $t$ market movements."""
+
+[[cards]]
+id = "7700af18-77af-4088-85c0-c85ec0b1cc6e"
+front = "What is the arbitrage-free condition in the multi-period binomial model?"
+back = """
+There must exist a risk-neutral measure $Q$ such that the *discounted price process* $tilde(S)_t = S_t \\/ (1 + r)^t$ is a *martingale*:
+
+$ EE_Q [tilde(S)_(t+1) | cal(F)_t] = tilde(S)_t $
+
+In the homogeneous model: $d < 1 + r < u$."""
+
+[[cards]]
+id = "1c2864bc-a100-44b1-b06b-8b25836a4cf6"
+front = "What is a self-financing trading strategy?"
+back = """
+A sequence of holdings $(xi_t^0, xi_t^1)$ where the portfolio value satisfies:
+
+$ xi_t^0 B_(t+1) + xi_t^1 S_(t+1) = xi_(t+1)^0 B_(t+1) + xi_(t+1)^1 S_(t+1) $
+
+We may rebalance between riskless and risky assets, but cannot add or remove money."""
+
+[[cards]]
+id = "35429cf9-57e7-4046-b739-920c1e949490"
+front = "What is the backward induction formula?"
+back = """
+$ V_t = 1 \\/ (1 + r) EE_Q [V_(t+1) | cal(F)_t] $
+
+At each node, the value is the discounted risk-neutral expectation of the next period's value."""
+
+[[cards]]
+id = "201afbbf-f396-48aa-a43d-0b852a1f4c2e"
+front = "State the multi-period binomial pricing formula"
+back = """
+For a path-independent claim $C(omega) = f(S_T(omega))$ in a $T$-period binomial model:
+
+$ pi_C = 1 \\/ (1 + r)^T sum_(k=0)^T binom(T, k) q^k (1 - q)^(T - k) f(S_0 u^k d^(T - k)) $
+
+where $q = (1 + r - d) \\/ (u - d)$."""
+
+[[cards]]
+id = "086dc901-d719-4cb2-84fa-ac537c22c399"
+front = "What is the hedging condition for betting?"
+back = """
+For two complementary bets with decimal odds $alpha$ and $beta$, guaranteed profit exists iff:
+
+$ 1 \\/ alpha + 1 \\/ beta < 1 $"""
+
+[[cards]]
+id = "4914a5d6-0bec-414e-a135-017ce62f501d"
+front = "What are the frictionless market assumptions?"
+back = """
+- No transaction costs or taxes
+- Borrowing and lending at the same risk-free rate $r$
+- No restrictions on short selling
+- Assets are perfectly divisible
+- No arbitrage opportunities exist"""
+
+[[cards]]
+id = "a6e3597a-2fcf-484b-9c6a-0143a1fda497"
+front = "What are the key properties of probability measures?"
+back = """
+- $P(A^c) = 1 - P(A)$
+- *Monotonicity*: $A subset.eq B => P(A) <= P(B)$
+- *Sub-additivity*: $P(A union B) <= P(A) + P(B)$
+
+A $P$-*nullset* has $P(N) = 0$. An event holds *$P$-a.s.* if $P(A) = 1$."""
+
+[[cards]]
+id = "f7f1fde2-739b-4d2c-98f7-18809125c8b0"
+front = "What is the Borel sigma-algebra?"
+back = """
+$ cal(B)(RR) := sigma({(a, b] : a <= b}) $
+
+Generated by all half-open intervals. Contains singletons (${a} = inter.big_(n in NN) (a - 1\\/n, a]$) and closed intervals ($[a,b] = {a} union (a,b]$)."""
+
+[[cards]]
+id = "9826b844-29aa-43eb-add7-96e4efc81d56"
+front = "When is the pay-off matrix invertible and what does that mean?"
+back = """
+The pay-off matrix $X$ (rows = states, columns = assets) makes the market *complete* iff $X$ is invertible (full rank).
+
+Binomial: $X = mat(pi_0(1+r), pi_1 u; pi_0(1+r), pi_1 d)$ is invertible when $u != d$."""
+
+[[cards]]
+id = "f29fd90c-362e-43ee-86d6-f86e35b640aa"
+front = "What happens with pricing in a 3-state model?"
+back = """
+With $n = 3$ states and one risky asset, the risk-neutral condition gives one equation in two unknowns, yielding a *one-parameter family* of risk-neutral measures.
+
+Arbitrage-free iff this family contains a strictly positive solution. Non-replicable claims have an *interval* of arbitrage-free prices."""
+
+[[cards]]
+id = "3723afef-5de3-41fc-987c-84526c2e9df6"
+front = "What is the European call price in the binomial model?"
+back = """
+Assuming $S(U) > X > S(D)$ (only state $U$ pays):
+
+$ pi_(C_\"call\") = (S(U) - X) \\/ (1 + r) dot (pi_1(1 + r) - S(D)) \\/ (S(U) - S(D)) $
+
+Or equivalently: $pi_C = tilde(p)(S(U) - X) \\/ (1 + r)$."""
+
+[[cards]]
+id = "abe518a9-5033-40f9-9346-62fb662260e6"
+front = "How is the two-period binomial model solved by backward induction?"
+back = """
+*Upper branch* at node $S_0 u$: $V_1(U) = (q C(U U) + (1 - q)C(U D)) \\/ (1 + r)$
+
+*Lower branch* at node $S_0 d$: $V_1(D) = (q C(D U) + (1 - q)C(D D)) \\/ (1 + r)$
+
+*Initial*: $V_0 = (q V_1(U) + (1 - q) V_1(D)) \\/ (1 + r)$
+
+where $q = (1 + r - d) \\/ (u - d)$."""
+
+[[cards]]
+id = "509b3439-bce8-4362-8005-e99a93c6b4f6"
+front = "What is the replication lemma in the binomial model?"
+back = """
+If $u != d$, the unique portfolio replicating a payoff $phi$ with $phi(U) = 1$, $phi(D) = 0$ has:
+
+$ xi_1 = 1 \\/ (pi_1(u - d)), quad xi_0 = (-d) \\/ ((u - d)(1 + r)pi_0) $
+
+*Proof*: Solve $xi_0 pi_0(1+r) + xi_1 pi_1 u = 1$ and $xi_0 pi_0(1+r) + xi_1 pi_1 d = 0$."""
+
+[[cards]]
+id = "99001090-1cdd-414e-9731-4ca0175c526e"
+front = "What is the generating sigma-algebra?"
+back = """
+For a collection $cal(K) subset.eq cal(P)(Omega)$:
+
+$ sigma(cal(K)) = inter.big {cal(F) : cal(F) \"is a\" sigma\"-algebra\", cal(K) subset.eq cal(F)} $
+
+It is the *smallest* $sigma$-algebra containing $cal(K)$."""
+
+[[cards]]
+id = "e88636ea-f574-4038-a59b-bc883af0eba7"
+front = "How are implied probabilities calculated from odds?"
+back = """
+From *decimal odds* $d$: implied probability $p = 1 \\/ d$.
+
+From *fractional odds* $a:b$: $p = b \\/ (a + b)$.
+
+Conversion: fractional $a:b$ gives decimal odds $d = (a + b) \\/ b$."""
+
+[[cards]]
+id = "9ed76151-b991-4d2c-874a-3a47d8d7a1ed"
+front = "What is the APR?"
+back = """
+The *Annual Percentage Rate* is the interest rate $r^*$ such that the present value of all payments equals the loan amount:
+
+$ P = sum_(k=1)^N A_k (1 + r^* \\/ n)^(-k) $
+
+When no closed-form solution exists, use Newton-Raphson: $r_(n+1) = r_n - f(r_n) \\/ f'(r_n)$."""
+
+[[cards]]
+id = "2e9d68fb-9b61-4002-a0ea-b105d57f00ba"
+front = "What are equivalent probability measures?"
+back = """
+$P$ and $Q$ are *equivalent* ($P tilde Q$) iff they have the same nullsets:
+
+$ P(A) = 0 <=> Q(A) = 0 quad \"for all\" A in cal(F) $
+
+For finite sample spaces with $P({omega_i}) > 0$ for all $omega_i$, all such measures are equivalent."""
