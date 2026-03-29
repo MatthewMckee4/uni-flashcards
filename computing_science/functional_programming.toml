@@ -1,0 +1,364 @@
+name = "Functional Programming"
+description = ""
+created = "2026-03-29"
+preamble = ""
+
+[[cards]]
+id = "1a2b3c4d-1111-4abc-8abc-000000000001"
+front = "What is the Church-Rosser theorem?"
+back = """
+Evaluation can be performed in any order and will produce the same result.
+
+This makes functional programs suitable for equational reasoning and parallel evaluation."""
+
+[[cards]]
+id = "1a2b3c4d-1111-4abc-8abc-000000000002"
+front = "What is currying?"
+back = """
+Transforming a function of multiple arguments into a sequence of single-argument functions.
+
+In Haskell, `add x y = x + y` is syntactic sugar for `add x = \\y -> x + y`.
+
+This enables *partial application*: `add 3` is a valid function of type `Int -> Int`."""
+
+[[cards]]
+id = "1a2b3c4d-1111-4abc-8abc-000000000003"
+front = "What is the type of function composition in Haskell?"
+back = """
+`(.) :: (b -> c) -> (a -> b) -> (a -> c)`
+
+`(f . g) x = f (g x)` — apply `g` first, then `f`."""
+
+[[cards]]
+id = "1a2b3c4d-1111-4abc-8abc-000000000004"
+front = "What is a list comprehension in Haskell?"
+back = """
+A concise syntax for building lists from generators and guards:
+
+```haskell
+[x * 2 | x <- [1..], x `mod` 2 == 0]
+```
+
+Reads as "double each `x` drawn from `[1..]` where `x` is even"."""
+
+[[cards]]
+id = "1a2b3c4d-1111-4abc-8abc-000000000005"
+front = "What is tail recursion and why does it matter in Haskell?"
+back = """
+A recursive call is *tail recursive* if it is the last operation in the function.
+
+Haskell applies tail-call optimisation, reusing the current stack frame rather than allocating a new one, giving constant stack space."""
+
+[[cards]]
+id = "1a2b3c4d-1111-4abc-8abc-000000000006"
+front = "What are sum types and product types in Haskell?"
+back = """
+**Sum type** (tagged union / enum): value is *one of* several alternatives.
+```haskell
+data Season = Spring | Summer | Autumn | Winter
+```
+
+**Product type** (struct / tuple): value holds *all of* several fields simultaneously.
+```haskell
+data Point = Point Double Double
+```"""
+
+[[cards]]
+id = "1a2b3c4d-1111-4abc-8abc-000000000007"
+front = "What is the Maybe type and when is it used?"
+back = """
+```haskell
+data Maybe a = Just a | Nothing
+```
+
+Used to represent an optional value — `Nothing` in place of `null`.
+
+The compiler forces callers to handle both cases, preventing null pointer errors."""
+
+[[cards]]
+id = "1a2b3c4d-1111-4abc-8abc-000000000008"
+front = "What is the difference between foldl and foldr?"
+back = """
+Both reduce a list to a single value.
+
+`foldl f z [a,b,c] = f (f (f z a) b) c` — left-associative, accumulates left to right.
+
+`foldr f z [a,b,c] = f a (f b (f c z))` — right-associative, builds from right.
+
+`foldr` is preferred for infinite/lazy lists; `foldl'` (strict left fold) is preferred for strict accumulation."""
+
+[[cards]]
+id = "1a2b3c4d-1111-4abc-8abc-000000000009"
+front = "What is property-based testing (QuickCheck)?"
+back = """
+Define properties as boolean predicates; the framework generates random inputs and checks the property holds.
+
+```haskell
+prop_reverse :: [Int] -> Bool
+prop_reverse xs = reverse (reverse xs) == xs
+```
+
+Testing can *show the presence* of bugs but never their absence."""
+
+[[cards]]
+id = "1a2b3c4d-1111-4abc-8abc-000000000010"
+front = "What is the difference between eager and lazy evaluation?"
+back = """
+**Eager** (strict / call-by-value): arguments are evaluated before the function body runs.
+
+**Lazy** (non-strict / call-by-need): arguments are only evaluated when their value is actually needed.
+
+Haskell is lazy by default, enabling infinite data structures like `[1..]`."""
+
+[[cards]]
+id = "1a2b3c4d-1111-4abc-8abc-000000000011"
+front = "What is the difference between parametric and ad-hoc polymorphism?"
+back = """
+**Parametric**: A function works for *any* type using type variables; behaviour depends only on shape.
+```haskell
+length :: [a] -> Int
+```
+
+**Ad-hoc**: Different implementations per type, selected at compile time via *typeclasses*.
+```haskell
+class Show a where show :: a -> String
+```"""
+
+[[cards]]
+id = "1a2b3c4d-1111-4abc-8abc-000000000012"
+front = "What is a typeclass in Haskell?"
+back = """
+A typeclass defines a set of functions (an interface) that a type must implement.
+
+```haskell
+class Eq a where
+  (==) :: a -> a -> Bool
+  (/=) :: a -> a -> Bool
+```
+
+Types opt in with `instance` declarations. The `deriving` clause auto-generates common instances."""
+
+[[cards]]
+id = "1a2b3c4d-1111-4abc-8abc-000000000013"
+front = "Why does Haskell use the IO type constructor?"
+back = """
+Haskell separates pure functions (referentially transparent, no side effects) from impure ones.
+
+IO operations are marked `IO a`; you cannot extract a pure value from `IO a` — this enforces that side effects are tracked in the type system."""
+
+[[cards]]
+id = "1a2b3c4d-1111-4abc-8abc-000000000014"
+front = "What are the two requirements for a monad?"
+back = """
+1. A way to inject a pure value into the monad: `return :: a -> m a`
+2. A way to sequence computations: `(>>=) :: m a -> (a -> m b) -> m b`
+
+These must satisfy the three monad laws."""
+
+[[cards]]
+id = "1a2b3c4d-1111-4abc-8abc-000000000015"
+front = "What are the three monad laws?"
+back = """
+**Left identity**: `return x >>= f = f x`
+
+**Right identity**: `m >>= return = m`
+
+**Associativity**: `(m >>= f) >>= g = m >>= (\\x -> f x >>= g)`"""
+
+[[cards]]
+id = "1a2b3c4d-1111-4abc-8abc-000000000016"
+front = "What is do-notation in Haskell?"
+back = """
+Syntactic sugar that desugars to `>>=` and `>>` calls.
+
+```haskell
+do
+  x <- action1
+  action2
+  y <- action3
+  return (x + y)
+```
+
+desugars to `action1 >>= \\x -> action2 >> action3 >>= \\y -> return (x + y)`."""
+
+[[cards]]
+id = "1a2b3c4d-1111-4abc-8abc-000000000017"
+front = "What is the Reader monad used for?"
+back = """
+Passing shared read-only configuration through a computation without threading it explicitly as an argument.
+
+`ask` retrieves the environment; `runReader` runs the computation with a given environment."""
+
+[[cards]]
+id = "1a2b3c4d-1111-4abc-8abc-000000000018"
+front = "What is the Writer monad used for?"
+back = """
+Accumulating a log (or other monoid value) alongside a computation.
+
+`tell` appends to the log; `runWriter` returns the result paired with the accumulated log."""
+
+[[cards]]
+id = "1a2b3c4d-1111-4abc-8abc-000000000019"
+front = "What is the State monad used for?"
+back = """
+Maintaining and threading a mutable state value through a pure computation.
+
+`get` reads the state; `put` replaces it; `runState` runs the computation with an initial state and returns `(result, finalState)`."""
+
+[[cards]]
+id = "1a2b3c4d-1111-4abc-8abc-000000000020"
+front = "What is a Semigroup? What additional law does a Monoid add?"
+back = """
+**Semigroup**: a set with an associative binary operation `(<>)`.
+
+**Monoid**: a Semigroup with an identity element `mempty` such that:
+- `mempty <> x = x` (left identity)
+- `x <> mempty = x` (right identity)
+
+Examples: `String` with `++`, lists with `++`, numbers with `+` and `0`."""
+
+[[cards]]
+id = "1a2b3c4d-1111-4abc-8abc-000000000021"
+front = "What is the Alternative typeclass and how is it used in parser combinators?"
+back = """
+```haskell
+class Applicative f => Alternative f where
+  empty :: f a
+  (<|>) :: f a -> f a -> f a
+```
+
+`p <|> q` tries parser `p`; if it fails, tries `q`. Used to express choice in grammars."""
+
+[[cards]]
+id = "1a2b3c4d-1111-4abc-8abc-000000000022"
+front = "What are the Functor laws?"
+back = """
+**Identity**: `fmap id = id`
+
+**Composition**: `fmap (f . g) = fmap f . fmap g`
+
+These ensure `fmap` only changes values, not the structure of the container."""
+
+[[cards]]
+id = "1a2b3c4d-1111-4abc-8abc-000000000023"
+front = "What is an Applicative Functor? How does it extend Functor?"
+back = """
+```haskell
+class Functor f => Applicative f where
+  pure  :: a -> f a
+  (<*>) :: f (a -> b) -> f a -> f b
+```
+
+`fmap` lifts a plain function; `<*>` applies a *wrapped* function to a wrapped value.
+
+Useful for combining independent effects without intermediate binds."""
+
+[[cards]]
+id = "1a2b3c4d-1111-4abc-8abc-000000000024"
+front = "What is the Either type and how is it used for error handling?"
+back = """
+```haskell
+data Either e a = Left e | Right a
+```
+
+Convention: `Left` carries an error value, `Right` carries a success value.
+
+It is a monad — `>>=` short-circuits on `Left`, propagating the error."""
+
+[[cards]]
+id = "1a2b3c4d-1111-4abc-8abc-000000000025"
+front = "How does exception handling work in Haskell?"
+back = """
+```haskell
+catch :: Exception e => IO a -> (e -> IO a) -> IO a
+try   :: Exception e => IO a -> IO (Either e a)
+```
+
+Exceptions in *pure* code can only be caught in the `IO` monad.
+
+`try` wraps the result in `Either`, letting you handle errors without special syntax."""
+
+[[cards]]
+id = "1a2b3c4d-1111-4abc-8abc-000000000026"
+front = "What is a monad transformer?"
+back = """
+A type constructor that composes two monads into a single combined monad.
+
+Example: `MaybeT m a` adds `Maybe`-style early exit to any monad `m`.
+
+`lift` promotes an action in the base monad into the transformer stack."""
+
+[[cards]]
+id = "1a2b3c4d-1111-4abc-8abc-000000000027"
+front = "What are the three constructs of the lambda calculus?"
+back = """
+1. **Variable**: `x`
+2. **Abstraction** (function): `λ x . M` — a function with parameter `x` and body `M`
+3. **Application**: `M N` — apply function `M` to argument `N`"""
+
+[[cards]]
+id = "1a2b3c4d-1111-4abc-8abc-000000000028"
+front = "What is alpha equivalence?"
+back = """
+Two lambda terms are *alpha-equivalent* if they differ only in the names of bound variables.
+
+`λ x . x` and `λ y . y` are alpha-equivalent.
+
+Free variables are *not* renamed."""
+
+[[cards]]
+id = "1a2b3c4d-1111-4abc-8abc-000000000029"
+front = "What is beta reduction?"
+back = """
+The computational step in the lambda calculus: substituting the argument for the parameter in the function body.
+
+`(λ x . M) N  →  M[x := N]`
+
+where `M[x := N]` means "replace all free occurrences of `x` in `M` with `N`"."""
+
+[[cards]]
+id = "1a2b3c4d-1111-4abc-8abc-000000000030"
+front = "What is variable capture and how is it avoided?"
+back = """
+If a substitution introduces a free variable that gets bound by a surrounding lambda, the meaning changes — this is *capture*.
+
+Avoided by first alpha-renaming bound variables in the function body to fresh names before substituting."""
+
+[[cards]]
+id = "1a2b3c4d-1111-4abc-8abc-000000000031"
+front = "What is the difference between let and where bindings in Haskell?"
+back = """
+Both introduce local bindings.
+
+`let` is an *expression* and can be used anywhere an expression is expected.
+
+`where` is a *declaration* attached to a function clause; it cannot appear in the middle of an expression but can define multiple helpers cleanly."""
+
+[[cards]]
+id = "1a2b3c4d-1111-4abc-8abc-000000000032"
+front = "What is a newtype in Haskell and how does it differ from data?"
+back = """
+`newtype` declares a type with exactly one constructor and one field.
+
+```haskell
+newtype Name = Name String
+```
+
+It is *erased at runtime* (zero overhead), whereas `data` allocates a constructor tag.
+
+The type system treats `Name` and `String` as distinct, enabling type-safe wrappers."""
+
+[[cards]]
+id = "1a2b3c4d-1111-4abc-8abc-000000000033"
+front = "What are record types in Haskell?"
+back = """
+A `data` declaration with named fields:
+
+```haskell
+data Student = Student { name :: String, age :: Int }
+```
+
+This auto-generates accessor functions (`name :: Student -> String`) and enables record update syntax:
+```haskell
+s { age = 21 }
+```"""
