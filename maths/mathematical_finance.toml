@@ -11,11 +11,6 @@ With principal $P$, annual rate $r$, and time $T$ years:
 
 $ P_T = P(1 + r T) $"""
 
-[cards.review]
-repetitions = 1
-interval = 1
-ease_factor = 2.36
-due_date = "2026-03-04"
 
 [[cards]]
 id = "a714b190-7a86-419b-9c0a-904d529ba319"
@@ -25,11 +20,6 @@ With principal $P$, annual rate $r$, and time $T$ years:
 
 $ P_T = P(1 + r)^T $"""
 
-[cards.review]
-repetitions = 1
-interval = 1
-ease_factor = 2.5
-due_date = "2026-03-04"
 
 [[cards]]
 id = "4542e422-1492-474a-a8f8-997fcc7e18a5"
