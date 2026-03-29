@@ -1,0 +1,322 @@
+name = "Programming Languages"
+description = ""
+created = "2026-03-29"
+preamble = ""
+
+[[cards]]
+id = "2a3b4c5d-2222-4abc-8abc-000000000001"
+front = "What are the four levels of Chomsky's hierarchy?"
+back = """
+From most to least restrictive:
+
+- **Type 3** — Regular languages (recognised by finite automata / regular expressions)
+- **Type 2** — Context-free languages (recognised by push-down automata / CFGs)
+- **Type 1** — Context-sensitive languages
+- **Type 0** — Recursively enumerable languages (recognised by Turing machines)
+
+Most programming language grammars are context-free (Type 2)."""
+
+[[cards]]
+id = "2a3b4c5d-2222-4abc-8abc-000000000002"
+front = "What is Backus-Naur Form (BNF)?"
+back = """
+A notation for specifying context-free grammars:
+
+```
+<expr> ::= <expr> "+" <term> | <term>
+<term> ::= <term> "*" <factor> | <factor>
+```
+
+`<symbol>` denotes a non-terminal, unquoted literals are terminals, `|` separates alternatives."""
+
+[[cards]]
+id = "2a3b4c5d-2222-4abc-8abc-000000000003"
+front = "What makes a grammar ambiguous?"
+back = """
+A grammar is *ambiguous* if a single string has more than one parse tree.
+
+Ambiguity is undesirable because it makes the meaning of a program non-deterministic.
+
+Typically resolved by adding precedence rules or refactoring the grammar."""
+
+[[cards]]
+id = "2a3b4c5d-2222-4abc-8abc-000000000004"
+front = "What is an Abstract Syntax Tree (AST)?"
+back = """
+A tree representation of a program that abstracts away irrelevant syntactic details (parentheses, whitespace, operator precedence).
+
+Produced by the parser; used as the input for evaluation, type-checking, and code generation."""
+
+[[cards]]
+id = "2a3b4c5d-2222-4abc-8abc-000000000005"
+front = "What is the difference between lexing and parsing?"
+back = """
+**Lexing** (tokenisation): converts raw text into a flat stream of tokens (identifiers, keywords, literals, operators) using regular expressions.
+
+**Parsing**: consumes the token stream and produces an AST according to the language's context-free grammar."""
+
+[[cards]]
+id = "2a3b4c5d-2222-4abc-8abc-000000000006"
+front = "What are the three styles of operational semantics?"
+back = """
+**Denotational**: maps expressions to mathematical objects (e.g., functions).
+
+**Axiomatic**: uses pre/post-conditions on program state (Hoare logic).
+
+**Operational**: describes expression reduction step-by-step, either big-step or small-step."""
+
+[[cards]]
+id = "2a3b4c5d-2222-4abc-8abc-000000000007"
+front = "What is big-step operational semantics?"
+back = """
+A judgement `e ⇓ v` states that expression `e` evaluates to value `v` in one logical step (hiding intermediate steps).
+
+Written as inference rules:
+
+```
+   e₁ ⇓ n₁    e₂ ⇓ n₂
+  ————————————————————————
+   e₁ + e₂ ⇓ n₁ + n₂
+```"""
+
+[[cards]]
+id = "2a3b4c5d-2222-4abc-8abc-000000000008"
+front = "What is small-step operational semantics?"
+back = """
+A judgement `M → N` describes a *single* reduction step.
+
+`M →* N` denotes zero or more steps (reflexive-transitive closure).
+
+**Reduction rules** perform actual computation; **congruence rules** reduce inside sub-expressions (typically left-to-right)."""
+
+[[cards]]
+id = "2a3b4c5d-2222-4abc-8abc-000000000009"
+front = "What are the two properties of type soundness?"
+back = """
+**Progress**: A well-typed term is either already a value or can take a reduction step (it never gets stuck).
+
+**Preservation** (Subject Reduction): If a well-typed term takes a step, the result is still well-typed with the same type."""
+
+[[cards]]
+id = "2a3b4c5d-2222-4abc-8abc-000000000010"
+front = "What is a free variable? What is a bound variable?"
+back = """
+A variable is **bound** if it appears within the scope of a binder (lambda, let, etc.) that introduces it.
+
+A variable is **free** if it is not bound — it refers to a definition outside the current expression.
+
+In `λ x . x + y`, `x` is bound and `y` is free."""
+
+[[cards]]
+id = "2a3b4c5d-2222-4abc-8abc-000000000011"
+front = "What is substitution in the context of programming language semantics?"
+back = """
+`M[x := N]` means "replace all *free* occurrences of variable `x` in `M` with `N`".
+
+Substitution is used to define the semantics of function application:
+`(λ x . M) N  →  M[x := N]`
+
+Care must be taken to avoid variable capture."""
+
+[[cards]]
+id = "2a3b4c5d-2222-4abc-8abc-000000000012"
+front = "What is a type environment (Γ)?"
+back = """
+A mapping from variable names to their types, maintained during type-checking.
+
+Written as `Γ ⊢ e : T` — "under assumptions Γ, expression `e` has type `T`".
+
+Extended with `Γ, x : T` when a new binding is introduced."""
+
+[[cards]]
+id = "2a3b4c5d-2222-4abc-8abc-000000000013"
+front = "What are product types and sum types?"
+back = """
+**Product type** (`A × B`): holds a value of *both* `A` and `B` simultaneously (pairs/records).
+
+**Sum type** (`A + B`): holds a value of *either* `A` or `B` (tagged union/variant).
+
+Sum types are constructed with injection functions (`inl`/`inr`) and eliminated with pattern matching."""
+
+[[cards]]
+id = "2a3b4c5d-2222-4abc-8abc-000000000014"
+front = "What is a recursive type? Give an example."
+back = """
+A type defined in terms of itself.
+
+```
+IntList = [] | Int :: IntList
+```
+
+The type must be introduced via a fixpoint (`μ`) operator in formal type theory.
+
+Used to define lists, trees, and other inductive data structures."""
+
+[[cards]]
+id = "2a3b4c5d-2222-4abc-8abc-000000000015"
+front = "What is a stack machine and what are its advantages for code generation?"
+back = """
+A virtual machine that uses a stack for all operands and results rather than named registers.
+
+**Advantages**:
+- Code generation is simple (no register allocation)
+- Bytecode is compact
+- Architecture-neutral (used by JVM, .NET CLR, WebAssembly)"""
+
+[[cards]]
+id = "2a3b4c5d-2222-4abc-8abc-000000000016"
+front = "What is the SVM (Simple Virtual Machine) data store?"
+back = """
+A stack with a stack pointer `sp`.
+
+Key instructions:
+- `LOADC n` — push constant `n`
+- `LOADG a` / `STOREG a` — load/store global at address `a`
+- `LOADL o` / `STOREL o` — load/store local at stack offset `o`
+- `ADD`, `SUB`, `MUL`, `DIV` — arithmetic on top two stack values
+- `JUMP a`, `JUMPF a`, `JUMPT a` — unconditional/conditional jumps"""
+
+[[cards]]
+id = "2a3b4c5d-2222-4abc-8abc-000000000017"
+front = "What is back-patching in bytecode compilation?"
+back = """
+When compiling a conditional, the jump target address is not yet known.
+
+A placeholder address is emitted; the compiler records the location.
+
+Once the target is known (after compiling the branch body), the placeholder is filled in — *patched back*."""
+
+[[cards]]
+id = "2a3b4c5d-2222-4abc-8abc-000000000018"
+front = "What is an Intermediate Representation (IR) in a compiler?"
+back = """
+A language-independent representation between the source AST and machine code.
+
+Common IR expressions: `Local(var)`, `Name(label)`, `Const(n)`, `BinOp(op, e1, e2)`, `Mem(e)`
+
+Common IR statements: `Seq(s1,s2)`, `Label(l)`, `Move(e1,e2)`, `Jump(e)`, `CJump(e,l1,l2)`, `Return(e)`"""
+
+[[cards]]
+id = "2a3b4c5d-2222-4abc-8abc-000000000019"
+front = "What is three-address code?"
+back = """
+An IR where each instruction has at most one operation and at most three operands:
+
+`t1 = a + b`
+`t2 = t1 * c`
+
+Complex expressions are broken into a sequence of assignments to temporary variables."""
+
+[[cards]]
+id = "2a3b4c5d-2222-4abc-8abc-000000000020"
+front = "What is a basic block?"
+back = """
+A maximal straight-line sequence of instructions where:
+- Other blocks only jump to the *first* instruction
+- There is exactly one (possibly conditional) jump at the *end*
+
+Basic blocks are the nodes of a control-flow graph."""
+
+[[cards]]
+id = "2a3b4c5d-2222-4abc-8abc-000000000021"
+front = "What is a control-flow graph (CFG)?"
+back = """
+A directed graph where:
+- Each **node** is a basic block
+- Each **edge** represents a possible flow of control (unconditional jump, conditional branch, or fall-through)
+
+One entry block, one exit block. Used for liveness analysis and optimisation."""
+
+[[cards]]
+id = "2a3b4c5d-2222-4abc-8abc-000000000022"
+front = "What are the dataflow equations for liveness analysis?"
+back = """
+For each basic block `b`:
+
+`in[b]  = use[b] ∪ (out[b] \\ def[b])`
+
+`out[b] = ⋃ { in[s] | s ∈ succ(b) }`
+
+where `use[b]` = variables used before defined in `b`, `def[b]` = variables defined in `b`.
+
+Solved iteratively (backwards) until fixpoint."""
+
+[[cards]]
+id = "2a3b4c5d-2222-4abc-8abc-000000000023"
+front = "What is register allocation via graph colouring?"
+back = """
+Build an **interference graph**: variables that are simultaneously live are connected by an edge.
+
+**Graph colouring**: assign a colour (register) to each variable so that no two adjacent variables share a colour.
+
+If the graph requires more colours than available registers, some variables must be **spilled** to memory."""
+
+[[cards]]
+id = "2a3b4c5d-2222-4abc-8abc-000000000024"
+front = "What is the maximal munch algorithm for instruction selection?"
+back = """
+A greedy tree-pattern matching algorithm:
+
+At each node of the IR tree, select the largest matching instruction pattern.
+
+Recurse on any unmatched sub-trees.
+
+Linear in tree size; produces a locally minimal instruction count."""
+
+[[cards]]
+id = "2a3b4c5d-2222-4abc-8abc-000000000025"
+front = "What is linearisation of an IR tree?"
+back = """
+Flattening a right-leaning tree of `Seq` nodes into a flat list of statements.
+
+Required before instruction selection, as most instruction sets are lists (not trees) of instructions."""
+
+[[cards]]
+id = "2a3b4c5d-2222-4abc-8abc-000000000026"
+front = "What is the Visitor pattern and why is it used with ASTs?"
+back = """
+A design pattern that separates an *operation* from the *object structure* it traverses.
+
+Each AST node type has a `visit` method; a `Visitor` class provides one method per node type.
+
+Allows adding new operations (type-checking, code generation) without modifying AST node classes."""
+
+[[cards]]
+id = "2a3b4c5d-2222-4abc-8abc-000000000027"
+front = "What is recursive descent parsing?"
+back = """
+A hand-written parsing technique where each non-terminal in the grammar corresponds to a mutually-recursive function.
+
+Simple and readable but requires care with left-recursive grammars (which cause infinite recursion)."""
+
+[[cards]]
+id = "2a3b4c5d-2222-4abc-8abc-000000000028"
+front = "What is name shadowing?"
+back = """
+When an inner scope declares a variable with the same name as one in an outer scope, the inner declaration *shadows* the outer one within its scope.
+
+```
+let x = 1 in
+  let x = 2 in  -- shadows outer x
+    x            -- evaluates to 2
+```"""
+
+[[cards]]
+id = "2a3b4c5d-2222-4abc-8abc-000000000029"
+front = "What is the substitution lemma used for in type soundness proofs?"
+back = """
+It states that if `Γ, x : A ⊢ e : B` and `Γ ⊢ v : A`, then `Γ ⊢ e[x := v] : B`.
+
+It is required to prove **preservation** for the function-application reduction rule, since beta-reduction performs substitution."""
+
+[[cards]]
+id = "2a3b4c5d-2222-4abc-8abc-000000000030"
+front = "What is the difference between a compiler, interpreter, and virtual machine?"
+back = """
+**Compiler**: translates source to a lower-level language (e.g. machine code) as a separate step before execution.
+
+**Interpreter**: executes the program directly without generating a separate executable.
+
+**Virtual Machine**: executes a portable bytecode format via an interpreter (e.g. JVM).
+
+**JIT compiler**: compiles hot bytecode to native code at runtime for performance."""
