@@ -1,0 +1,400 @@
+name = "Advanced Systems Programming"
+description = ""
+created = "2026-03-29"
+preamble = ""
+
+[[cards]]
+id = "3a4b5c6d-3333-4abc-8abc-000000000001"
+front = "What are the three main constraints on systems programming?"
+back = """
+1. **Memory management**: must be predictable — bounded timing (real-time) and bounded memory usage.
+2. **Data representation**: locality and exact bit-level control are critical for performance.
+3. **Shared state management**: concurrent access is a critical performance bottleneck."""
+
+[[cards]]
+id = "3a4b5c6d-3333-4abc-8abc-000000000002"
+front = "What are the key weaknesses of C as a systems language?"
+back = """
+- Limited concurrency support
+- Extensive *undefined behaviour* (193 kinds) — results unpredictable
+- Buffer overflows and memory safety violations
+- Weak type system allows dangerous aliasing and casts
+- ~70% of Microsoft security updates fix unsafe memory bugs in C/C++ code"""
+
+[[cards]]
+id = "3a4b5c6d-3333-4abc-8abc-000000000003"
+front = "What are the segments of a process's memory layout?"
+back = """
+From low to high address:
+
+- **Program text**: compiled machine code (read-only)
+- **Data segment**: initialised global variables and string literals
+- **BSS segment**: uninitialised global variables (zero-initialised at runtime)
+- **Heap**: explicitly allocated memory; grows upward
+- **Stack**: function frames (parameters, return address, locals); grows downward
+- **Kernel**: top of address space; not user-accessible"""
+
+[[cards]]
+id = "3a4b5c6d-3333-4abc-8abc-000000000004"
+front = "How does a stack buffer overflow attack work?"
+back = """
+Write past the end of a stack array to overwrite the saved return address on the stack frame.
+
+On function return, control jumps to attacker-controlled code.
+
+Mitigations: non-executable stack, ASLR (address space layout randomisation), stack canaries.
+
+Root fix: use a memory-safe language with bounds checks."""
+
+[[cards]]
+id = "3a4b5c6d-3333-4abc-8abc-000000000005"
+front = "What is the difference between strong and weak typing?"
+back = """
+**Strong**: every operation must conform to the type system; no implicit unsafe conversions.
+
+**Weak**: there are ways to circumvent the type checker (implicit numeric conversions, unsafe casts).
+
+**Safe languages** (strong or dynamic): only legal operations on typed values.
+
+**Unsafe languages** (C, C++): the type system can be bypassed, enabling undefined behaviour."""
+
+[[cards]]
+id = "3a4b5c6d-3333-4abc-8abc-000000000006"
+front = "What are the rules for Rust references?"
+back = """
+At any given time, a value may have *either*:
+- Any number of shared immutable references `&T`, **or**
+- Exactly **one** mutable reference `&mut T`
+
+Never both simultaneously.
+
+A `&T` reference to mutable data makes the data immutable through that reference. References are never null."""
+
+[[cards]]
+id = "3a4b5c6d-3333-4abc-8abc-000000000007"
+front = "What are the three ownership patterns in Rust?"
+back = """
+1. **Consume** (move): take ownership by value; value freed at end of scope.
+2. **Borrow** (shared reference `&T`): caller retains ownership; receiver gets read-only access.
+3. **Borrow mutably** (`&mut T`): caller retains ownership; receiver gets exclusive write access.
+
+Returning a value transfers ownership to the caller."""
+
+[[cards]]
+id = "3a4b5c6d-3333-4abc-8abc-000000000008"
+front = "What is Box<T> in Rust?"
+back = """
+A smart pointer that allocates `T` on the heap.
+
+Guarantees:
+- Memory is initialised and correctly sized
+- Memory is automatically deallocated when the `Box` goes out of scope (RAII)
+- Single owner — does not implement `Copy`, preventing data races
+
+`Box<T>` on the stack holds a pointer to the heap allocation; their lifetimes are tied together."""
+
+[[cards]]
+id = "3a4b5c6d-3333-4abc-8abc-000000000009"
+front = "How does Rust prevent dangling references and use-after-free?"
+back = """
+**Dangling references**: the compiler rejects returning a reference to a local variable, because the local is freed when the function returns.
+
+**Use-after-free**: a moved value cannot be accessed — the compiler gives a compile error if you try to use a value after its ownership has been transferred."""
+
+[[cards]]
+id = "3a4b5c6d-3333-4abc-8abc-000000000010"
+front = "What is reference counting and what are its trade-offs?"
+back = """
+Each heap object stores an integer count of references to it.
+
+Count increases when a new reference is created; decreases when one is dropped.
+
+Object reclaimed when count reaches zero.
+
+**Pros**: Predictable, understandable reclamation; good for large, long-lived data.
+
+**Cons**: Cyclic structures are never reclaimed; overhead for small short-lived objects."""
+
+[[cards]]
+id = "3a4b5c6d-3333-4abc-8abc-000000000011"
+front = "What is RAII (Resource Acquisition Is Initialisation)?"
+back = """
+A pattern where a resource's lifetime is tied to a stack object:
+- Resource acquired in the constructor
+- Resource released in the destructor (when object goes out of scope)
+
+In Rust, the `Drop` trait provides the destructor. `Box<T>` is the canonical example: the heap memory is freed when the `Box` is dropped."""
+
+[[cards]]
+id = "3a4b5c6d-3333-4abc-8abc-000000000012"
+front = "How does mark-sweep garbage collection work?"
+back = """
+**Mark phase**: starting from the *root set* (global variables + live stack variables), traverse the heap graph and mark every reachable object as live.
+
+**Sweep phase**: scan the entire heap; reclaim any unmarked object, adding it to a free list.
+
+Simple but causes fragmentation, has poor cache locality, and pauses the program."""
+
+[[cards]]
+id = "3a4b5c6d-3333-4abc-8abc-000000000013"
+front = "How does mark-compact garbage collection differ from mark-sweep?"
+back = """
+Adds a third **compact phase** after marking: all live objects are moved to be contiguous.
+
+**Pros**: eliminates fragmentation; allocation becomes a fast pointer increment.
+
+**Cons**: slower (objects must be moved and all pointers updated); poor locality during collection."""
+
+[[cards]]
+id = "3a4b5c6d-3333-4abc-8abc-000000000014"
+front = "How does a copying (semi-space) garbage collector work?"
+back = """
+The heap is split into two equal halves (*semispaces*).
+
+Allocation is linear from one semispace.
+
+When that semispace is full, live objects are *copied* to the other semispace (using Cheney's BFS algorithm).
+
+**Pros**: integrates mark and copy in one pass; fast allocation.
+
+**Cons**: only half the heap is usable at any time."""
+
+[[cards]]
+id = "3a4b5c6d-3333-4abc-8abc-000000000015"
+front = "What is the generational hypothesis and how do generational collectors exploit it?"
+back = """
+**Generational hypothesis**: most objects have a very short lifetime; objects that survive longer tend to survive much longer.
+
+**Generational GC**: divide the heap into a *young* generation and one or more *old* generations.
+- Collect the young generation frequently (cheap, most garbage found here)
+- Objects that survive several collections are promoted to the old generation
+- Old-to-young references tracked in a *remembered set* / *indirection table*"""
+
+[[cards]]
+id = "3a4b5c6d-3333-4abc-8abc-000000000016"
+front = "What is incremental garbage collection and how is tricolor marking used?"
+back = """
+Collection work is interleaved with program execution in small increments to avoid long pauses.
+
+**Tricolor invariant**:
+- **White**: not yet reached
+- **Grey**: reachable but children not yet checked
+- **Black**: reachable and children checked
+
+A *wavefront* of grey objects advances through the heap.
+
+**Write barriers** (trap writes from black to white objects) keep the invariant consistent while the program mutates the heap."""
+
+[[cards]]
+id = "3a4b5c6d-3333-4abc-8abc-000000000017"
+front = "What are the ACID properties of a transaction?"
+back = """
+- **Atomicity**: all operations succeed or none do
+- **Consistency**: the transaction starts and ends in a valid state
+- **Isolation**: intermediate states are invisible to other transactions
+- **Durability**: committed results persist even after failure"""
+
+[[cards]]
+id = "3a4b5c6d-3333-4abc-8abc-000000000018"
+front = "How does Software Transactional Memory (STM) work in Haskell?"
+back = """
+```haskell
+newTVar  :: a -> STM (TVar a)
+readTVar :: TVar a -> STM a
+writeTVar :: TVar a -> a -> STM ()
+atomically :: STM a -> IO a
+```
+
+Operations run in a thread-local transaction log. On `atomically`, the log is validated; if consistent it commits, otherwise it rolls back and retries.
+
+The type system (`STM` context) prevents I/O inside transactions."""
+
+[[cards]]
+id = "3a4b5c6d-3333-4abc-8abc-000000000019"
+front = "What is the difference between synchronous and asynchronous message passing?"
+back = """
+**Synchronous** (rendezvous): the sender blocks until the receiver accepts the message.
+
+**Asynchronous** (buffered): the sender continues immediately; messages are queued in the receiver's mailbox."""
+
+[[cards]]
+id = "3a4b5c6d-3333-4abc-8abc-000000000020"
+front = "What is a data race and how do message-passing systems prevent it?"
+back = """
+A *data race* occurs when a sender modifies data after passing a reference to it, so the receiver may see an inconsistent version.
+
+Prevention strategies:
+- **Immutable data**: cannot be modified after sending
+- **Ownership transfer**: the `send` operation moves ownership, so the sender can no longer access the data"""
+
+[[cards]]
+id = "3a4b5c6d-3333-4abc-8abc-000000000021"
+front = "What is the \"Let it Crash\" philosophy in Erlang?"
+back = """
+Processes are cheap and plentiful.
+
+When a process encounters an error, it is safer to let it crash and have a *supervisor* restart it with clean state, rather than trying to recover from a potentially corrupt state.
+
+Focus is on *system* reliability via supervision hierarchies, not individual process reliability."""
+
+[[cards]]
+id = "3a4b5c6d-3333-4abc-8abc-000000000022"
+front = "What is a supervision hierarchy?"
+back = """
+A tree-structured group of processes where *supervisor* processes monitor *worker* processes.
+
+When a worker crashes, its supervisor restarts it.
+
+If an entire subsystem fails, a higher-level supervisor can restart all its children.
+
+This pattern (from Erlang/OTP) decouples error handling from normal logic."""
+
+[[cards]]
+id = "3a4b5c6d-3333-4abc-8abc-000000000023"
+front = "What problem does async/await solve?"
+back = """
+Efficient I/O multiplexing on a *single* thread, avoiding the overhead of one thread per connection.
+
+`async` marks a function as a *coroutine*; `.await` yields control while waiting for I/O, allowing the runtime to run another coroutine.
+
+Provides the programming model of sequential code without the overhead of blocking threads."""
+
+[[cards]]
+id = "3a4b5c6d-3333-4abc-8abc-000000000024"
+front = "What is the Future trait in Rust's async system?"
+back = """
+```rust
+pub trait Future {
+    type Output;
+    fn poll(self: Pin<&mut Self>, cx: &mut Context) -> Poll<Self::Output>;
+}
+pub enum Poll<T> { Ready(T), Pending }
+```
+
+The runtime (e.g. Tokio) repeatedly polls futures until all return `Ready`.
+
+An `async fn` desugars to a state machine implementing `Future`."""
+
+[[cards]]
+id = "3a4b5c6d-3333-4abc-8abc-000000000025"
+front = "What are the two main pitfalls when writing async code?"
+back = """
+1. **Blocking operations**: calling blocking I/O inside an async runtime blocks the *entire* thread and all coroutines on it. All I/O must use async-aware versions.
+
+2. **Long-running computations**: since control transfer is explicit (only at `await` points), a long computation starves other tasks. Offload to a dedicated thread."""
+
+[[cards]]
+id = "3a4b5c6d-3333-4abc-8abc-000000000026"
+front = "What are phantom types in Rust?"
+back = """
+A type parameter that exists only at compile time and is erased at runtime.
+
+Used to attach semantic *tags* to data without runtime cost:
+
+```rust
+struct Html<S>(String, PhantomData<S>);
+struct UserInput;
+struct Sanitised;
+
+fn sanitise(html: Html<UserInput>) -> Html<Sanitised> { ... }
+```
+
+The compiler enforces that unsanitised HTML cannot be passed where sanitised HTML is expected."""
+
+[[cards]]
+id = "3a4b5c6d-3333-4abc-8abc-000000000027"
+front = "What is type-driven development?"
+back = """
+A design process: define types first, then write functions, then refine.
+
+Types describe: data exchanged, system states, entity properties, valid transitions.
+
+The compiler acts as a model checker — if the code compiles, the type constraints are satisfied (*correct by construction*)."""
+
+[[cards]]
+id = "3a4b5c6d-3333-4abc-8abc-000000000028"
+front = "How can types encode state machines in Rust?"
+back = """
+**Enum approach**: encode all states in one enum; a `next(state, event) -> State` function is a single exhaustive match. All transitions visible in one place.
+
+**Struct approach**: each state is a separate struct; transitions are methods that consume `self` and return the next state struct. The type system prevents calling methods on the wrong state."""
+
+[[cards]]
+id = "3a4b5c6d-3333-4abc-8abc-000000000029"
+front = "What is Result<T, E> in Rust and what does the ? operator do?"
+back = """
+```rust
+enum Result<T, E> { Ok(T), Err(E) }
+```
+
+Represents a computation that may fail. The compiler forces both cases to be handled.
+
+The `?` operator: if the result is `Err(e)`, immediately return `Err(e)` from the enclosing function. Equivalent to an early return on failure."""
+
+[[cards]]
+id = "3a4b5c6d-3333-4abc-8abc-000000000030"
+front = "What are the anti-patterns of \"stringly typed\" code and boolean flags?"
+back = """
+**String typing**: using `String` parameters instead of domain-specific types. The compiler cannot catch misuse.
+
+**Boolean flags**: `File::open(path, true, false)` — the meaning of `true`/`false` is opaque.
+
+**Fix**: use enums: `File::open(path, FileMode::Write, LockMode::Exclusive)` — self-documenting and compiler-checked."""
+
+[[cards]]
+id = "3a4b5c6d-3333-4abc-8abc-000000000031"
+front = "What are the 11 categories of undefined memory behaviour in C?"
+back = """
+1. Type-unsafe allocation (`malloc` size mismatch)
+2. Use before allocation
+3. Use after free
+4. Use of memory as wrong type (unsafe cast)
+5. String functions on non-null-terminated strings
+6. Heap buffer overflow
+7. Stack array bounds overflow
+8. Arbitrary pointer arithmetic
+9. Use of uninitialised memory
+10. Dangling pointers
+11. Null pointer dereference"""
+
+[[cards]]
+id = "3a4b5c6d-3333-4abc-8abc-000000000032"
+front = "What is Postel's Law and why is it now considered harmful?"
+back = """
+*"Be liberal in what you accept, conservative in what you send."*
+
+Originally intended to improve interoperability, it is now seen as **harmful** because accepting malformed or ambiguous input increases the attack surface and makes parser correctness harder to reason about.
+
+Modern guidance: be as restrictive as possible in what you accept; specify and reject failure cases explicitly."""
+
+[[cards]]
+id = "3a4b5c6d-3333-4abc-8abc-000000000033"
+front = "Why should parsers be auto-generated from a grammar rather than written ad-hoc?"
+back = """
+- The grammar is formally specified and machine-checkable
+- The parser is provably consistent with the grammar
+- Auto-generated parsers produce strongly-typed data structures
+- Manual ad-hoc parsers are error-prone and harder to audit
+
+The *parser is a security boundary* — it is the first line of defence against malformed or malicious network input."""
+
+[[cards]]
+id = "3a4b5c6d-3333-4abc-8abc-000000000034"
+front = "What is the Java memory model for concurrency?"
+back = """
+- Changes are seen in program order *within* a single thread
+- A `volatile` field is accessed atomically and changes are immediately visible to all threads
+- Non-volatile changes become visible after a lock release/acquisition
+- 32-bit reads/writes are atomic; `long` and `double` are not (unless `volatile`)"""
+
+[[cards]]
+id = "3a4b5c6d-3333-4abc-8abc-000000000035"
+front = "What is Option<T> in Rust and why is it preferred over null?"
+back = """
+```rust
+enum Option<T> { Some(T), None }
+```
+
+A type-safe alternative to null pointers.
+
+The compiler forces every `Option<T>` to be matched against both `Some` and `None`, making it impossible to accidentally dereference a null value."""
