@@ -2,3 +2,8 @@ name = "Topics in Algebra"
 description = ""
 created = "2026-03-30"
 preamble = ""
+
+[[cards]]
+id = "43cad130-81a2-43f7-bc17-68e3f6437556"
+front = "Front"
+back = "Back"
