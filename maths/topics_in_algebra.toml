@@ -5,5 +5,15 @@ preamble = ""
 
 [[cards]]
 id = "43cad130-81a2-43f7-bc17-68e3f6437556"
-front = "Front"
-back = "Back"
+front = "State the First Isomorphism Theorem"
+back = '''Let $phi : G -> G'$ be a homomorphism with kernel $K$, and let $gamma_K : G -> G \/ K$ be the canonical homomorphism. There is a unique isomorphism $mu : G \/ K -> phi[G]$ such that $phi(x) = mu(gamma_K (x))$ for each $x in G$.'''
+
+[[cards]]
+id = "0770ea5f-1638-4862-99b7-13b5eb6ec512"
+front = "State the Second Isomorphism Theorem"
+back = 'Let $H$ be a subgroup of $G$ and let $N$ be a normal subgroup of $G$. Then $(H N) \/ N tilde.eq H \/ (H sect N)$.'
+
+[[cards]]
+id = "87f5c61b-6e5d-44d1-9557-04b62d890efa"
+front = "State the Third Isomorphism Theorem"
+back = 'Let $H$ and $K$ be normal subgroups of a group $G$ with $K <= H$. Then $G \/ H tilde.eq (G \/ K) \/ (H \/ K)$.'
