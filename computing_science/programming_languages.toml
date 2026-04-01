@@ -69,23 +69,19 @@ back = """
 id = "2a3b4c5d-2222-4abc-8abc-000000000007"
 front = "What is big-step operational semantics?"
 back = """
-A judgement `e ⇓ v` states that expression `e` evaluates to value `v` in one logical step (hiding intermediate steps).
+A judgement $M arrow.b.double V$ states that expression $M$ evaluates to value $V$ in one logical step (hiding intermediate steps).
 
-Written as inference rules:
+Written as inference rules, e.g. for binary operations:
 
-```
-   e₁ ⇓ n₁    e₂ ⇓ n₂
-  ————————————————————————
-   e₁ + e₂ ⇓ n₁ + n₂
-```"""
+$ (L arrow.b.double V quad M arrow.b.double W) / (L dot.circle M arrow.b.double V hat(dot.circle) W) $"""
 
 [[cards]]
 id = "2a3b4c5d-2222-4abc-8abc-000000000008"
 front = "What is small-step operational semantics?"
 back = """
-A judgement `M → N` describes a *single* reduction step.
+$M arrow.long N$ describes a *single* reduction step.
 
-`M →* N` denotes zero or more steps (reflexive-transitive closure).
+$M arrow.long^* N$ denotes zero or more steps (reflexive-transitive closure).
 
 **Reduction rules** perform actual computation; **congruence rules** reduce inside sub-expressions (typically left-to-right)."""
 
@@ -93,9 +89,11 @@ A judgement `M → N` describes a *single* reduction step.
 id = "2a3b4c5d-2222-4abc-8abc-000000000009"
 front = "What are the two properties of type soundness?"
 back = """
-**Progress**: A well-typed term is either already a value or can take a reduction step (it never gets stuck).
+**Progress**: if $dot tack M : A$, then either $M$ is a value or $exists N$ such that $M arrow.long N$.
 
-**Preservation** (Subject Reduction): If a well-typed term takes a step, the result is still well-typed with the same type."""
+**Preservation**: if $Gamma tack M : A$ and $M arrow.long N$, then $Gamma tack N : A$.
+
+Together: "well-typed programs don't go wrong"."""
 
 [[cards]]
 id = "2a3b4c5d-2222-4abc-8abc-000000000010"
@@ -110,33 +108,31 @@ In `λ x . x + y`, `x` is bound and `y` is free."""
 [[cards]]
 id = "2a3b4c5d-2222-4abc-8abc-000000000011"
 front = "What is substitution in the context of programming language semantics?"
-back = """
-`M[x := N]` means "replace all *free* occurrences of variable `x` in `M` with `N`".
+back = '''
+$M{V \/ x}$ means "replace all *free* occurrences of variable $x$ in $M$ with $V$".
 
 Substitution is used to define the semantics of function application:
-`(λ x . M) N  →  M[x := N]`
+$(lambda x . M) V arrow.long M{V \/ x}$
 
-Care must be taken to avoid variable capture."""
+Care must be taken to avoid variable capture.'''
 
 [[cards]]
 id = "2a3b4c5d-2222-4abc-8abc-000000000012"
-front = "What is a type environment (Γ)?"
+front = "What is a type environment ($Gamma$)?"
 back = """
-A mapping from variable names to their types, maintained during type-checking.
+A mapping from variable names to their types: $Gamma := dot | Gamma, x : A$
 
-Written as `Γ ⊢ e : T` — "under assumptions Γ, expression `e` has type `T`".
+The typing judgement $Gamma tack M : A$ means "under assumptions $Gamma$, expression $M$ has type $A$".
 
-Extended with `Γ, x : T` when a new binding is introduced."""
+Extended with $Gamma, x : A$ when a new binding is introduced."""
 
 [[cards]]
 id = "2a3b4c5d-2222-4abc-8abc-000000000013"
 front = "What are product types and sum types?"
 back = """
-**Product type** (`A × B`): holds a value of *both* `A` and `B` simultaneously (pairs/records).
+**Product type** $A times B$: holds a value of *both* $A$ and $B$ simultaneously (pairs/records). Eliminated with `fst` and `snd`.
 
-**Sum type** (`A + B`): holds a value of *either* `A` or `B` (tagged union/variant).
-
-Sum types are constructed with injection functions (`inl`/`inr`) and eliminated with pattern matching."""
+**Sum type** $A + B$: holds a value of *either* $A$ or $B$ (tagged union/variant). Constructed with $"inl"$ / $"inr"$, eliminated with pattern matching."""
 
 [[cards]]
 id = "2a3b4c5d-2222-4abc-8abc-000000000014"
@@ -230,16 +226,16 @@ One entry block, one exit block. Used for liveness analysis and optimisation."""
 [[cards]]
 id = "2a3b4c5d-2222-4abc-8abc-000000000022"
 front = "What are the dataflow equations for liveness analysis?"
-back = """
+back = '''
 For each basic block `b`:
 
-`in[b]  = use[b] ∪ (out[b] \\ def[b])`
+`in[b]  = use[b] ∪ (out[b] \ def[b])`
 
 `out[b] = ⋃ { in[s] | s ∈ succ(b) }`
 
 where `use[b]` = variables used before defined in `b`, `def[b]` = variables defined in `b`.
 
-Solved iteratively (backwards) until fixpoint."""
+Solved iteratively (backwards) until fixpoint.'''
 
 [[cards]]
 id = "2a3b4c5d-2222-4abc-8abc-000000000023"
@@ -304,10 +300,10 @@ let x = 1 in
 [[cards]]
 id = "2a3b4c5d-2222-4abc-8abc-000000000029"
 front = "What is the substitution lemma used for in type soundness proofs?"
-back = """
-It states that if `Γ, x : A ⊢ e : B` and `Γ ⊢ v : A`, then `Γ ⊢ e[x := v] : B`.
+back = '''
+If $Gamma, x : A tack M : B$ and $Gamma tack V : A$, then $Gamma tack M{V \/ x} : B$.
 
-It is required to prove **preservation** for the function-application reduction rule, since beta-reduction performs substitution."""
+It is required to prove **preservation** for the function-application reduction rule, since beta-reduction performs substitution.'''
 
 [[cards]]
 id = "2a3b4c5d-2222-4abc-8abc-000000000030"
@@ -320,3 +316,235 @@ back = """
 **Virtual Machine**: executes a portable bytecode format via an interpreter (e.g. JVM).
 
 **JIT compiler**: compiles hot bytecode to native code at runtime for performance."""
+
+[[cards]]
+id = "2a3b4c5d-2222-4abc-8abc-000000000031"
+front = "What are the four components of a grammar?"
+back = """
+- A set of **terminal symbols**: symbols that occur in sentences (e.g. digits, operators)
+- A distinguished **sentence symbol** (start symbol) that stands for a complete sentence
+- A set of **nonterminal symbols**: each stands for part of a phrase
+- A set of **production rules**: specify how to construct phrases from terminals and sub-phrases"""
+
+[[cards]]
+id = "2a3b4c5d-2222-4abc-8abc-000000000032"
+front = 'What are the big-step rules for if-then-else ($L_"If"$)?'
+back = """
+Boolean values are already values: $"true" arrow.b.double "true"$, $"false" arrow.b.double "false"$.
+
+$ (L arrow.b.double "true" quad M arrow.b.double V) / ("if" L "then" M "else" N arrow.b.double V) $
+
+$ (L arrow.b.double "false" quad N arrow.b.double V) / ("if" L "then" M "else" N arrow.b.double V) $"""
+
+[[cards]]
+id = "2a3b4c5d-2222-4abc-8abc-000000000033"
+front = "What is the big-step rule for let-bindings?"
+back = '''
+$ (M arrow.b.double V quad N{V \/ x} arrow.b.double W) / ("let" x = M "in" N arrow.b.double W) $
+
+Evaluate $M$ to a value $V$, substitute $V$ for $x$ in $N$, then evaluate the result.'''
+
+[[cards]]
+id = "2a3b4c5d-2222-4abc-8abc-000000000034"
+front = "What is alpha equivalence?"
+back = """
+Two terms are **alpha equivalent** if they differ only in the names of bound variables.
+
+`let x = 1 in x + x` is alpha equivalent to `let y = 1 in y + y`.
+
+Alpha equivalence means the choice of bound variable names is irrelevant to meaning."""
+
+[[cards]]
+id = "2a3b4c5d-2222-4abc-8abc-000000000035"
+front = "What is variable capture and how is it avoided?"
+back = """
+**Variable capture** occurs when substitution accidentally binds a free variable. E.g. substituting $y$ for $x$ in $lambda y . x$ gives $lambda y . y$, changing the meaning.
+
+Avoided by **capture-avoiding substitution**: rename (freshen) bound variables before substituting under a binder."""
+
+[[cards]]
+id = "2a3b4c5d-2222-4abc-8abc-000000000036"
+front = "What is currying?"
+back = """
+Encoding a multi-argument function as nested single-argument functions.
+
+$f(x, y) = M$ becomes $lambda x . lambda y . M$
+
+Applied as $(f " " 3) " " 4$ -- each application peels off one argument.
+
+Allows partial application: $f " " 3$ returns a function that still expects $y$."""
+
+[[cards]]
+id = "2a3b4c5d-2222-4abc-8abc-000000000037"
+front = "What is the big-step rule for function application (beta reduction)?"
+back = '''
+$ (M arrow.b.double lambda x . M' quad N arrow.b.double V quad M'{V \/ x} arrow.b.double W) / (M " " N arrow.b.double W) $
+
+Evaluate $M$ to a lambda, evaluate $N$ to a value $V$, substitute $V$ for $x$ in the body, and evaluate the result.'''
+
+[[cards]]
+id = "2a3b4c5d-2222-4abc-8abc-000000000038"
+front = "What is the big-step rule for recursive functions (rec)?"
+back = '''
+$ (M arrow.b.double "rec" f(x) . M' quad N arrow.b.double V quad M'{"rec" f(x).M' \/ f, V \/ x} arrow.b.double W) / (M " " N arrow.b.double W) $
+
+The function itself is substituted for $f$ in the body, enabling self-reference / recursive calls.'''
+
+[[cards]]
+id = "2a3b4c5d-2222-4abc-8abc-000000000039"
+front = "What is the typing rule for function application?"
+back = """
+$ (Gamma tack M : A -> B quad Gamma tack N : A) / (Gamma tack M " " N : B) $
+
+The function must have type $A -> B$ and the argument must have type $A$; the result has type $B$."""
+
+[[cards]]
+id = "2a3b4c5d-2222-4abc-8abc-000000000040"
+front = "What is the typing rule for let-bindings?"
+back = """
+$ (Gamma tack M : A quad Gamma, x : A tack N : B) / (Gamma tack "let" x = M "in" N : B) $
+
+Type-check $M$ to get type $A$, then type-check $N$ with $x$ bound to $A$ in the environment."""
+
+[[cards]]
+id = "2a3b4c5d-2222-4abc-8abc-000000000041"
+front = "What is the typing rule for recursive functions?"
+back = """
+$ (Gamma, f : A -> B, x : A tack M : B) / (Gamma tack "rec" f(x) . M : A -> B) $
+
+Both the function name $f$ and the parameter $x$ are in scope when type-checking the body $M$."""
+
+[[cards]]
+id = "2a3b4c5d-2222-4abc-8abc-000000000042"
+front = "What is the difference between a statement and an expression?"
+back = """
+**Expression**: a term that reduces to a **value** (e.g. `3 + 4`, `x * y`). Can be contained within a statement.
+
+**Statement** (or command): an instruction/computation step that **does not return a value** — instead it modifies program state (e.g. assignment, while loop, skip)."""
+
+[[cards]]
+id = "2a3b4c5d-2222-4abc-8abc-000000000043"
+front = 'What is the syntax of $L_"While"$ (core imperative language)?'
+back = '''
+$ "Constants" c &:= n | b \
+"Expressions" L, M, N &:= x | c | M dot.circle N \
+"Statements" s, t &:= s; t | "skip" | x := M | "if" M "then" s "else" t | "while" M { s } $
+
+`skip` is a no-op; $x := M$ is variable assignment; $;$ sequences statements.'''
+
+[[cards]]
+id = "2a3b4c5d-2222-4abc-8abc-000000000044"
+front = 'How do expressions evaluate in $L_"While"$ (with state $sigma$)?'
+back = """
+$sigma, M arrow.b.double V$ means "under state $sigma$, expression $M$ evaluates to value $V$".
+
+$ (x |-> V in sigma) / (sigma, x arrow.b.double V) #h(2em) () / (sigma, c arrow.b.double c) #h(2em) (sigma, L arrow.b.double V quad sigma, M arrow.b.double W) / (sigma, L dot.circle M arrow.b.double V hat(dot.circle) W) $"""
+
+[[cards]]
+id = "2a3b4c5d-2222-4abc-8abc-000000000045"
+front = 'What are the statement semantics for skip, sequencing, and assignment in $L_"While"$?'
+back = """
+$sigma, s arrow.b.double sigma'$ means executing statement $s$ in state $sigma$ produces new state $sigma'$.
+
+$ () / (sigma, "skip" arrow.b.double sigma) #h(2em) (sigma, s arrow.b.double sigma' quad sigma', t arrow.b.double sigma'') / (sigma, s; t arrow.b.double sigma'') #h(2em) (sigma, M arrow.b.double V) / (sigma, x := M arrow.b.double sigma[x |-> V]) $"""
+
+[[cards]]
+id = "2a3b4c5d-2222-4abc-8abc-000000000046"
+front = 'What are the big-step rules for while loops in $L_"While"$?'
+back = """
+**While (false)**: return state unchanged.
+$ (sigma, M arrow.b.double "false") / (sigma, "while" M { s } arrow.b.double sigma) $
+
+**While (true)**: evaluate the body, then re-evaluate the whole while with the updated state.
+$ (sigma, M arrow.b.double "true" quad sigma, s arrow.b.double sigma' quad sigma', "while" M { s } arrow.b.double sigma'') / (sigma, "while" M { s } arrow.b.double sigma'') $"""
+
+[[cards]]
+id = "2a3b4c5d-2222-4abc-8abc-000000000047"
+front = "Why compile to native code instead of bytecode?"
+back = """
+- **Performance**: no interpretation overhead; runs directly on hardware with architecture-specific optimisations
+- **Bootstrapping**: bytecode interpreters must themselves be written in a compiled language
+- **Systems programming**: need low-level access (system calls, inline assembly)
+- **JIT compilation**: can compile hot code paths to native code at runtime"""
+
+[[cards]]
+id = "2a3b4c5d-2222-4abc-8abc-000000000048"
+front = "What are the stages of the native code compilation pipeline?"
+back = """
+1. **Frontend** — parsing and type-checking
+2. **Compilation to IR** — tree-based intermediate representation
+3. **Instruction selection** — map IR to architecture-specific instructions (with temporaries)
+4. **Control-flow graph** — organise into basic blocks
+5. **Liveness analysis** — compute live ranges of variables
+6. **Register allocation** — assign variables to physical registers (spill if needed)"""
+
+[[cards]]
+id = "2a3b4c5d-2222-4abc-8abc-000000000049"
+front = "What is the equivalence between big-step and small-step semantics?"
+back = """
+For terminating programs, the two styles are equivalent:
+
+- If $M arrow.b.double V$ then $M arrow.long^* V$
+- If $M arrow.long^* V$ then $M arrow.b.double V$
+
+Big-step is closer to interpreters; small-step can reason about nontermination and intermediate states."""
+
+[[cards]]
+id = "2a3b4c5d-2222-4abc-8abc-000000000050"
+front = "Give examples of violating preservation and progress."
+back = '''
+**Violating preservation**: an operator $M lt.tri N$ that evaluates both but returns $M$'s result. If typed as $B$ (from $N$) but the reduction returns type $A$ (from $M$), the type changes after a step.
+
+**Violating progress**: $L_"Arith"$ with division -- $5 \/ 0$ is well-typed ($"Int"$) but is not a value and cannot reduce further (stuck).
+
+Some languages (Python, TypeScript) are *deliberately unsound*.'''
+
+[[cards]]
+id = "2a3b4c5d-2222-4abc-8abc-000000000051"
+front = "What is the formal definition of free variables for let-bindings?"
+back = '''
+$ "FV"(n) &= {} \
+"FV"(x) &= {x} \
+"FV"(M dot.circle N) &= "FV"(M) union "FV"(N) \
+"FV"("if" L "then" M "else" N) &= "FV"(L) union "FV"(M) union "FV"(N) \
+"FV"("let" x = M "in" N) &= "FV"(M) union ("FV"(N) backslash {x}) $
+
+The binder `let x` removes $x$ from the free variables of the body $N$, but *not* from $M$ (since $x$ is not yet in scope).'''
+
+[[cards]]
+id = "2a3b4c5d-2222-4abc-8abc-000000000052"
+front = "What is a parser generator? How does it differ from recursive descent?"
+back = """
+A **parser generator** (e.g. ANTLR) takes a BNF grammar as input and automatically generates a lexer and parser.
+
+Unlike **recursive descent** (hand-written mutually-recursive functions) or **parser combinators** (composing small parsers in code), a parser generator lets the implementer focus on grammar design rather than parsing logic."""
+
+[[cards]]
+id = "2a3b4c5d-2222-4abc-8abc-000000000053"
+front = "What is spilling in register allocation?"
+back = """
+When the interference graph requires more colours than available physical registers, some variables must be stored in memory instead of registers.
+
+This is called **spilling**. The compiler inserts load/store instructions to move spilled variables between memory and registers when needed."""
+
+[[cards]]
+id = "2a3b4c5d-2222-4abc-8abc-000000000054"
+front = 'Why does big-step type soundness fail for $L_"Rec"$?'
+back = """
+Big-step soundness states: if $dot tack M : A$ then $exists V$ such that $M arrow.b.double V$ and $dot tack V : A$.
+
+This **requires every term to terminate**, but $L_"Rec"$ has nonterminating programs like `(rec f(x). f x) true`.
+
+The answer is to use **small-step semantics**, where type soundness is stated as preservation + progress (no termination requirement)."""
+
+[[cards]]
+id = "2a3b4c5d-2222-4abc-8abc-000000000055"
+front = "What are reduction rules vs congruence rules in small-step semantics?"
+back = '''
+**Reduction rules** perform actual computation on values:
+$(lambda x . M) V arrow.long M{V \/ x}$
+
+**Congruence rules** reduce sub-expressions to values (enforce evaluation order):
+$ (M arrow.long M') / (M " " N arrow.long M' " " N) #h(2em) (M arrow.long M') / (V " " M arrow.long V " " M') $
+
+Together they enforce left-to-right evaluation order.'''

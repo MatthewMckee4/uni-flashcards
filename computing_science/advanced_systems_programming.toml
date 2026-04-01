@@ -82,7 +82,7 @@ Returning a value transfers ownership to the caller."""
 
 [[cards]]
 id = "3a4b5c6d-3333-4abc-8abc-000000000008"
-front = "What is Box<T> in Rust?"
+front = 'What is Box\<T\> in Rust?'
 back = """
 A smart pointer that allocates `T` on the heap.
 
@@ -321,7 +321,7 @@ back = """
 
 [[cards]]
 id = "3a4b5c6d-3333-4abc-8abc-000000000029"
-front = "What is Result<T, E> in Rust and what does the ? operator do?"
+front = 'What is Result\<T, E\> in Rust and what does the ? operator do?'
 back = """
 ```rust
 enum Result<T, E> { Ok(T), Err(E) }
@@ -389,7 +389,7 @@ back = """
 
 [[cards]]
 id = "3a4b5c6d-3333-4abc-8abc-000000000035"
-front = "What is Option<T> in Rust and why is it preferred over null?"
+front = 'What is Option\<T\> in Rust and why is it preferred over null?'
 back = """
 ```rust
 enum Option<T> { Some(T), None }
@@ -398,3 +398,238 @@ enum Option<T> { Some(T), None }
 A type-safe alternative to null pointers.
 
 The compiler forces every `Option<T>` to be matched against both `Some` and `None`, making it impossible to accidentally dereference a null value."""
+
+[[cards]]
+id = "3a4b5c6d-3333-4abc-8abc-000000000036"
+front = "What is the difference between static and dynamic typing?"
+back = """
+**Static**: the type of a variable is fixed at compile time (may be explicitly declared or inferred). Enables more optimisations.
+
+**Dynamic**: the type can change at runtime. The type is stored alongside the value, requiring additional memory and processing time.
+
+Systems languages are generally statically typed and compiled ahead of time for performance."""
+
+[[cards]]
+id = "3a4b5c6d-3333-4abc-8abc-000000000037"
+front = "What are traits in Rust?"
+back = """
+Traits describe shared functionality that types can implement -- similar to interfaces.
+
+```rust
+trait Summary {
+    fn summarise(&self) -> String;
+}
+```
+
+Traits can have **associated types** (e.g. `Iterator::Item`). Common traits can be auto-derived with `#[derive(Debug, Clone)]`.
+
+Used for abstraction and generic programming: `fn notify<T: Summary>(item: T)`."""
+
+[[cards]]
+id = "3a4b5c6d-3333-4abc-8abc-000000000038"
+front = "What kinds of enums does Rust support?"
+back = """
+Three kinds:
+- **Unit**: `Quit` -- no data
+- **Tuple**: `Write(String)` -- positional fields
+- **Struct**: `Move { x: i32, y: i32 }` -- named fields
+
+All variants can coexist in one enum. Pattern matching extracts the data.
+
+Enums are *sum types* -- a value is exactly one of the variants."""
+
+[[cards]]
+id = "3a4b5c6d-3333-4abc-8abc-000000000039"
+front = "What is the difference between &str and String in Rust?"
+back = """
+**`&str`**: an immutable string *slice* (borrowed reference to UTF-8 data). Built into the language. Cannot be mutated or grown.
+
+**`String`**: a mutable, heap-allocated string *buffer*. Implemented in the standard library. Can be grown, modified, etc.
+
+`String` implements `Deref<Target=str>`, so taking a reference to a `String` yields an `&str`."""
+
+[[cards]]
+id = "3a4b5c6d-3333-4abc-8abc-000000000040"
+front = "How does Rust prevent iterator invalidation?"
+back = """
+An iterator holds an immutable reference (`&T`) to the collection.
+
+Rust's borrowing rules prevent obtaining a mutable reference (`&mut T`) while any immutable reference exists.
+
+Therefore, the collection **cannot be modified** while it is being iterated over -- the compiler rejects such code at compile time."""
+
+[[cards]]
+id = "3a4b5c6d-3333-4abc-8abc-000000000041"
+front = 'What is RefCell\<T\> in Rust?'
+back = """
+A type that enforces Rust's borrowing rules at **runtime** instead of compile time.
+
+Allows *interior mutability*: getting a mutable reference to data inside an otherwise immutable structure.
+
+Panics at runtime if the borrowing rules are violated (e.g. two mutable borrows at once).
+
+Used when the compiler cannot prove the borrowing is safe, but the programmer knows it is."""
+
+[[cards]]
+id = "3a4b5c6d-3333-4abc-8abc-000000000042"
+front = "What are memory-mapped files (mmap)?"
+back = """
+`mmap()` maps a file on disk directly into the process's address space.
+
+Reading/writing the mapped memory addresses reads/writes the underlying file.
+
+The file is *demand-paged*: only accessed portions are loaded into memory.
+
+Used for random access to large files and for loading shared libraries (`.so` / `.dll`)."""
+
+[[cards]]
+id = "3a4b5c6d-3333-4abc-8abc-000000000043"
+front = "What is region-based memory management?"
+back = """
+Tracks the *lifetime* of stack values and heap references at compile time (rather than at runtime like GC).
+
+In Rust: `Box<T>` on the stack references heap data. When the box goes out of scope, heap memory is freed automatically (RAII).
+
+**Pros**: predictable timing, no GC pauses, compile-time safety guarantees.
+
+**Cons**: forces the programmer to think about ownership early; cannot express cyclic structures."""
+
+[[cards]]
+id = "3a4b5c6d-3333-4abc-8abc-000000000044"
+front = "Why don't locks compose well? Give an example."
+back = """
+Individual locked operations may be safe, but combining them can break invariants.
+
+**Bank transfer example**: each account has its own lock. Withdrawing from A and depositing to B are individually safe, but the transfer needs *both* locks held simultaneously to prevent an intermediate state where money is in neither account.
+
+This requires additional locking logic beyond what either account provides alone, and risks deadlock if lock ordering is inconsistent."""
+
+[[cards]]
+id = "3a4b5c6d-3333-4abc-8abc-000000000045"
+front = "What constraints do STM transactions have?"
+back = """
+Transactions must be:
+- **Referentially transparent**: same inputs always produce the same result
+- **Non-irrevocable**: no side effects that cannot be undone (e.g. no I/O)
+
+This is because transactions may be **rolled back and retried** if validation fails.
+
+In Haskell, the type system (`STM` monad without `IO` context) enforces that I/O cannot occur inside `atomic` blocks."""
+
+[[cards]]
+id = "3a4b5c6d-3333-4abc-8abc-000000000046"
+front = "What are the two main message-passing architectures?"
+back = """
+**Dynamic, direct delivery** (Erlang, Scala):
+- Messages are dynamically typed
+- Sent directly to named actors/mailboxes
+- Easy upgrades (new message types ignored by old components)
+
+**Static, channel-based** (Rust):
+- Messages are statically typed via `mpsc::channel()`
+- Sent indirectly through explicit channels
+- Compiler checks message types; requires more plumbing"""
+
+[[cards]]
+id = "3a4b5c6d-3333-4abc-8abc-000000000047"
+front = "What is the difference between a generator and a coroutine?"
+back = """
+**Generator**: a function that *yields* a sequence of values. Maintains internal state between calls. Called via `next()`, executes until the next `yield`.
+
+**Coroutine**: more general -- both *consumes* and *yields* values. Called via `next()` or `send(value)`. Executes concurrently (not in parallel) with other code.
+
+An `async` function is a coroutine: `.await` yields control, and the runtime resumes it when I/O completes."""
+
+[[cards]]
+id = "3a4b5c6d-3333-4abc-8abc-000000000048"
+front = "What is a memory-safe language?"
+back = """
+A language where the only memory accessed is memory *owned* by the program, and all access is consistent with the declared type of the data.
+
+**Memory-safe**: Java, Rust, Go, Haskell, Python.
+
+**Memory-unsafe**: C, C++ -- these declare type-violating behaviour as *undefined* but do nothing to prevent it.
+
+~50% of all security vulnerabilities are memory safety violations."""
+
+[[cards]]
+id = "3a4b5c6d-3333-4abc-8abc-000000000049"
+front = "What is conservative garbage collection?"
+back = """
+Used for **weakly-typed languages** (e.g. C) where the collector cannot reliably distinguish pointers from integers.
+
+The collector treats anything that *could* be a pointer as a pointer.
+
+This is safe (won't free live objects) but may retain some garbage (false positives where an integer happens to look like a heap address)."""
+
+[[cards]]
+id = "3a4b5c6d-3333-4abc-8abc-000000000050"
+front = "What are zero-cost numeric newtypes in Rust?"
+back = """
+Wrapping a primitive in a struct to add type safety:
+
+```rust
+struct Celsius(f32);
+struct Fahrenheit(f32);
+```
+
+Prevents accidentally mixing units (e.g. the Mars Climate Orbiter loss).
+
+**Zero cost**: the optimiser sees through the wrapper -- compiled code operates directly on the primitive. No runtime overhead."""
+
+[[cards]]
+id = "3a4b5c6d-3333-4abc-8abc-000000000051"
+front = "What is ASLR and why is it used?"
+back = """
+**Address Space Layout Randomisation**: the OS randomises the starting address of the stack, heap, and program text each time a program runs.
+
+Makes buffer overflow exploits harder because the attacker cannot predict where code or data resides in memory.
+
+Not a complete solution -- a memory-safe language with bounds checks is the real fix."""
+
+[[cards]]
+id = "3a4b5c6d-3333-4abc-8abc-000000000052"
+front = "What is the difference between a message race and a data race?"
+back = """
+**Message race**: messages from multiple senders arrive in an unpredictable order. The program behaves differently depending on which message is processed first.
+
+**Data race**: shared memory is read and written concurrently without synchronisation, so the reader may see a partially-updated value.
+
+Message races are a logic bug; data races are undefined behaviour in most languages."""
+
+[[cards]]
+id = "3a4b5c6d-3333-4abc-8abc-000000000053"
+front = "What is the difference between a read barrier and a write barrier in incremental GC?"
+back = """
+Both coordinate between the mutator (program) and collector during incremental GC.
+
+**Read barrier**: traps reads of white (unchecked) objects, colours them grey. Prevents the program from ever seeing a white object.
+
+**Write barrier**: traps writes that create pointers from black (fully checked) to white objects, recolouring one as grey.
+
+Write barriers are generally cheaper since writes are less frequent than reads."""
+
+[[cards]]
+id = "3a4b5c6d-3333-4abc-8abc-000000000054"
+front = "How does Rust model state transitions using types (state-as-types pattern)?"
+back = """
+Each state is a distinct type. Transitions are functions that *consume* the old state and *return* the new state:
+
+```rust
+fn authenticate(conn: Unauthenticated) -> Authenticated { ... }
+fn send_email(conn: &Authenticated, email: &Email) { ... }
+```
+
+The type system makes it impossible to call `send_email` without first calling `authenticate`, since only `Authenticated` has that method.
+
+Ownership ensures the old state cannot be reused after a transition."""
+
+[[cards]]
+id = "3a4b5c6d-3333-4abc-8abc-000000000055"
+front = "What are the three main automatic memory management strategies?"
+back = """
+1. **Reference counting**: per-object counter; freed when count reaches 0. Predictable but cannot handle cycles.
+
+2. **Garbage collection**: runtime traces reachable objects and reclaims the rest (mark-sweep, copying, generational). Handles cycles but has unpredictable pauses.
+
+3. **Region-based / ownership**: compiler tracks lifetimes; memory freed deterministically when owner goes out of scope (Rust). Predictable, no runtime overhead, but restricts programming patterns."""

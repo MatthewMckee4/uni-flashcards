@@ -330,9 +330,19 @@ front = "What is the difference between let and where bindings in Haskell?"
 back = """
 Both introduce local bindings.
 
-`let` is an *expression* and can be used anywhere an expression is expected.
+`let` is an *expression* and can be used anywhere:
+```haskell
+circleArea r = let pi = 3.14159
+               in pi * r * r
+```
 
-`where` is a *declaration* attached to a function clause; it cannot appear in the middle of an expression but can define multiple helpers cleanly."""
+`where` is a *declaration* attached to a function clause:
+```haskell
+circleArea r = pi * r * r
+  where pi = 3.14159
+```
+
+`where` is often preferred at the top level; `let` is needed inside `do` blocks and list comprehensions."""
 
 [[cards]]
 id = "1a2b3c4d-1111-4abc-8abc-000000000032"
