@@ -1,0 +1,368 @@
+name = "Topics in Algebra (Claude)"
+description = ""
+created = "2026-03-30"
+preamble = ""
+
+[[cards]]
+id = "5a6b7c8d-5555-4abc-8abc-000000000001"
+front = "What is a normal subgroup? What is the quotient group?"
+back = '''
+$H triangle.l G$ if $a H = H a$ for all $a in G$, equivalently $a H a^(-1) = H$.
+
+When $H triangle.l G$, the cosets form a group $G \/ H$ under $(a H)(b H) = (a b) H$, called the *quotient group*.'''
+
+[[cards]]
+id = "5a6b7c8d-5555-4abc-8abc-000000000002"
+front = "State the First Isomorphism Theorem."
+back = '''
+Let $phi: G -> G'$ be a group homomorphism with $K = ker(phi)$. Then $K triangle.l G$ and
+$ G \/ K tilde.equiv phi(G) $
+via $mu(a K) = phi(a)$.
+
+Key: $mu$ is well-defined since $a K = b K implies phi(a) = phi(b)$.'''
+
+[[cards]]
+id = "5a6b7c8d-5555-4abc-8abc-000000000003"
+front = "State the Second (Diamond) Isomorphism Theorem."
+back = '''
+Let $H lt.eq G$ and $N triangle.l G$. Then $H N$ is a subgroup, $N triangle.l H N$, $H inter N triangle.l H$, and
+$ H N \/ N tilde.equiv H \/ (H inter N). $
+
+*Proof sketch.* The map $phi: H -> H N \/ N$, $phi(h) = h N$, is surjective with $ker(phi) = H inter N$.'''
+
+[[cards]]
+id = "5a6b7c8d-5555-4abc-8abc-000000000004"
+front = "State the Third Isomorphism Theorem."
+back = '''
+Let $N triangle.l G$ and $M triangle.l G$ with $N lt.eq M$. Then $M \/ N triangle.l G \/ N$ and
+$ (G \/ N) \/ (M \/ N) tilde.equiv G \/ M. $
+
+*Proof sketch.* The map $phi: G \/ N -> G \/ M$, $phi(g N) = g M$, is surjective with $ker(phi) = M \/ N$.'''
+
+[[cards]]
+id = "5a6b7c8d-5555-4abc-8abc-000000000005"
+front = "State the Correspondence Theorem."
+back = '''
+Let $N triangle.l G$. There is a bijection between subgroups of $G$ containing $N$ and subgroups of $G \/ N$, given by $H arrow.r.bar H \/ N$.
+
+This bijection preserves normality: $H triangle.l G$ iff $H \/ N triangle.l G \/ N$.'''
+
+[[cards]]
+id = "5a6b7c8d-5555-4abc-8abc-000000000006"
+front = "What is a subnormal series? What are its factor groups?"
+back = '''
+A *subnormal series* is a finite chain of subgroups
+$ {e} = H_0 triangle.l H_1 triangle.l dots.c triangle.l H_n = G $
+where each $H_i$ is normal in $H_(i+1)$ (not necessarily in $G$).
+
+The *factor groups* are $H_(i+1) \/ H_i$. A *normal series* additionally requires each $H_i triangle.l G$.'''
+
+[[cards]]
+id = "5a6b7c8d-5555-4abc-8abc-000000000007"
+front = "What does it mean for two subnormal series to be equivalent? What is a refinement?"
+back = '''
+Two series are *equivalent* if they have the same length and their factor groups are isomorphic in some order.
+
+A *refinement* of a series $S$ is a series $S'$ obtained by inserting additional subgroups — every group in $S$ appears in $S'$.'''
+
+[[cards]]
+id = "5a6b7c8d-5555-4abc-8abc-000000000008"
+front = "State the Zassenhaus (Butterfly) Lemma."
+back = '''
+Let $H' triangle.l H lt.eq G$ and $K' triangle.l K lt.eq G$. Then:
+- $H'(H inter K') triangle.l H'(H inter K)$
+- $K'(K inter H') triangle.l K'(K inter H)$
+- $H'(H inter K) \/ H'(H inter K') tilde.equiv K'(K inter H) \/ K'(K inter H')$
+
+Both quotients are isomorphic to $(H inter K) \/ ((H' inter K)(H inter K'))$.'''
+
+[[cards]]
+id = "5a6b7c8d-5555-4abc-8abc-000000000009"
+front = "State Schreier's Theorem."
+back = '''
+Any two subnormal series of a group $G$ have equivalent refinements.
+
+*Proof idea.* Insert intermediate groups $H_(i,j) = H_i(H_(i+1) inter K_j)$ between $H_i$ and $H_(i+1)$. The Zassenhaus Lemma shows each step is normal and that corresponding factors are isomorphic.'''
+
+[[cards]]
+id = "5a6b7c8d-5555-4abc-8abc-000000000010"
+front = "What is a composition series? What is a simple group?"
+back = '''
+A subnormal series $\{e\} = H_0 triangle.l dots.c triangle.l H_n = G$ is a *composition series* if each factor $H_(i+1) \/ H_i$ is *simple*.
+
+A group $G$ is *simple* if $G != \{e\}$ and its only normal subgroups are $\{e\}$ and $G$.
+
+Not every group has a composition series; every finite group does.'''
+
+[[cards]]
+id = "5a6b7c8d-5555-4abc-8abc-000000000011"
+front = "State the Jordan-Hölder Theorem."
+back = '''
+If $G$ has a composition series, then any two composition series of $G$ are equivalent — they have the same length and the same composition factors (up to order and isomorphism).
+
+This makes composition factors intrinsic invariants of $G$, analogous to prime factorisation for integers.'''
+
+[[cards]]
+id = "5a6b7c8d-5555-4abc-8abc-000000000012"
+front = "What is the commutator subgroup $[G,G]$ and what is its universal property?"
+back = '''
+For $a, b in G$, the *commutator* is $[a, b] = a^(-1) b^(-1) a b$.
+
+The *commutator subgroup* is $G' = [G,G] = chevron.l [a,b] mid(|) a, b in G chevron.r$.
+
+$G' triangle.l G$ and $G \/ G'$ is abelian. Universal property: if $N triangle.l G$ and $G \/ N$ is abelian, then $G' lt.eq N$ — so $G \/ G'$ is the *largest abelian quotient* of $G$.'''
+
+[[cards]]
+id = "5a6b7c8d-5555-4abc-8abc-000000000013"
+front = "What is a solvable group? What is the derived series?"
+back = '''
+$G$ is *solvable* if it has a subnormal series with abelian factor groups.
+
+Equivalently, the *derived series* $G^((0)) = G supset.eq G^((1)) = G' supset.eq G^((2)) = [G',G'] supset.eq dots.c$ eventually reaches $\{e\}$.
+
+Examples: all abelian groups, $S_3$, $S_4$. Non-example: $S_n$ for $n gt.eq 5$.'''
+
+[[cards]]
+id = "5a6b7c8d-5555-4abc-8abc-000000000014"
+front = "What is a nilpotent group? What is the lower central series?"
+back = '''
+The *lower central series* is $G_0 = G$, $G_(i+1) = [G, G_i]$.
+
+$G$ is *nilpotent* if $G_c = \{e\}$ for some $c$ (the *nilpotency class*).
+
+Key facts:
+- Every abelian group is nilpotent of class $lt.eq 1$
+- Every nilpotent group is solvable (not conversely: $S_3$ is solvable but not nilpotent)
+- Every $p$-group is nilpotent
+- A finite group is nilpotent iff it is a direct product of its Sylow $p$-subgroups'''
+
+[[cards]]
+id = "5a6b7c8d-5555-4abc-8abc-000000000015"
+front = "What is a group action? What is the equivalent homomorphism formulation?"
+back = '''
+A *group action* of $G$ on $S$ is a map $G times S -> S$ such that:
+- $e dot.c s = s$
+- $(g_1 g_2) dot.c s = g_1 dot.c (g_2 dot.c s)$
+
+Equivalently, a group homomorphism $phi: G -> "Sym"(S)$.'''
+
+[[cards]]
+id = "5a6b7c8d-5555-4abc-8abc-000000000016"
+front = "Define orbit and stabiliser. State the Orbit-Stabiliser Theorem."
+back = '''
+- *Orbit*: $"Orb"(s) = \{g dot.c s mid(|) g in G\}$
+- *Stabiliser*: $"Stab"(s) = \{g in G mid(|) g dot.c s = s\}$ — a subgroup of $G$
+
+*Orbit-Stabiliser Theorem*: $|"Orb"(s)| = [G : "Stab"(s)]$.
+
+For finite $G$: $|G| = |"Orb"(s)| dot.c |"Stab"(s)|$.'''
+
+[[cards]]
+id = "5a6b7c8d-5555-4abc-8abc-000000000017"
+front = "What is the class equation?"
+back = '''
+$G$ acts on itself by conjugation: $g dot.c x = g x g^(-1)$. The orbits are *conjugacy classes* $"Cl"(x)$.
+
+The *class equation* is:
+$ |G| = |Z(G)| + sum_("non-central") [G : C_G(x)] $
+
+where $Z(G)$ is the centre and $C_G(x) = \{g mid g x = x g\}$ is the centraliser of $x$.'''
+
+[[cards]]
+id = "5a6b7c8d-5555-4abc-8abc-000000000018"
+front = "State Cauchy's Theorem and sketch its proof."
+back = '''
+If $G$ is a finite group and $p$ is a prime dividing $|G|$, then $G$ has an element of order $p$.
+
+*Proof.* Let $S = \{(a_1,\dots,a_p) in G^p mid(|) a_1 dots.c a_p = e\}$, so $|S| = |G|^(p-1)$, divisible by $p$. Let $ZZ_p$ act on $S$ by cyclic shift. Orbits have size 1 or $p$; since $p mid |S|$, the number of fixed points is divisible by $p$. Beyond $(e,\dots,e)$, there exists $(a,\dots,a)$ with $a != e$ and $a^p = e$.'''
+
+[[cards]]
+id = "5a6b7c8d-5555-4abc-8abc-000000000019"
+front = "What is the normaliser $N_G(H)$?"
+back = '''
+$ N_G(H) = \{g in G mid(|) g H g^(-1) = H\} $
+
+It is the *largest subgroup of $G$ in which $H$ is normal*: $H triangle.l N_G(H) lt.eq G$.
+
+The number of conjugates of $H$ in $G$ is $[G : N_G(H)]$.'''
+
+[[cards]]
+id = "5a6b7c8d-5555-4abc-8abc-000000000020"
+front = "State the Very Useful Lemma (36.6)."
+back = '''
+Let $P$ be a $p$-subgroup of $G$ and let $P$ act on the set $cal(C)$ of left cosets of a subgroup $H$ by left multiplication.
+
+If $g H$ is a fixed point of this action, then $g^(-1) P g lt.eq H$.
+
+*Corollary*: if $|cal(C)|$ is not divisible by $p$, then $P$ is conjugate to a subgroup of $H$.'''
+
+[[cards]]
+id = "5a6b7c8d-5555-4abc-8abc-000000000021"
+front = "What is a Sylow $p$-subgroup?"
+back = '''
+Let $|G| = p^n m$ with $p$ prime and $gcd(p, m) = 1$.
+
+A *Sylow $p$-subgroup* of $G$ is a subgroup of order $p^n$ — a maximal $p$-subgroup.'''
+
+[[cards]]
+id = "5a6b7c8d-5555-4abc-8abc-000000000022"
+front = "State the three Sylow theorems."
+back = '''
+Let $|G| = p^n m$ with $gcd(p, m) = 1$, and let $n_p$ be the number of Sylow $p$-subgroups.
+
+1. *Existence*: $G$ has at least one Sylow $p$-subgroup; for each $0 lt.eq k lt.eq n$, $G$ has a subgroup of order $p^k$.
+2. *Conjugacy*: any two Sylow $p$-subgroups are conjugate.
+3. *Count*: $n_p equiv 1 (mod p)$ and $n_p mid m$.'''
+
+[[cards]]
+id = "5a6b7c8d-5555-4abc-8abc-000000000023"
+front = "How do the Sylow theorems show groups of order $p q$ (distinct primes $p < q$) are not simple?"
+back = '''
+$n_q mid p$ and $n_q equiv 1 (mod q)$. Since $p < q$, the only option is $n_q = 1$.
+
+So the Sylow $q$-subgroup is *unique*, hence normal in $G$, so $G$ is not simple.'''
+
+[[cards]]
+id = "5a6b7c8d-5555-4abc-8abc-000000000024"
+front = "What is a semidirect product $N ⋊_phi H$?"
+back = '''
+If $N triangle.l G$, $H lt.eq G$, $G = N H$, and $N inter H = \{e\}$, then $G$ is the *internal semidirect product* $N ⋊_phi H$.
+
+The multiplication is $(n_1, h_1)(n_2, h_2) = (n_1 phi(h_1)(n_2),\ h_1 h_2)$
+
+where $phi: H -> "Aut"(N)$, $phi(h)(n) = h n h^(-1)$.'''
+
+[[cards]]
+id = "5a6b7c8d-5555-4abc-8abc-000000000025"
+front = "What are all groups of order $p^2$?"
+back = '''
+Any group of order $p^2$ is abelian.
+
+*Reason*: $Z(G) != \{e\}$ for any $p$-group (class equation); if $G \/ Z(G)$ is cyclic then $G$ is abelian.
+
+Therefore the only groups of order $p^2$ are $ZZ_(p^2)$ and $ZZ_p times ZZ_p$.'''
+
+[[cards]]
+id = "5a6b7c8d-5555-4abc-8abc-000000000026"
+front = "What is a free abelian group and what is its universal property?"
+back = '''
+$F$ is a *free abelian group* with basis $B = \{a_i\}$ if every element is a unique finite $ZZ$-linear combination $sum n_i a_i$.
+
+Equivalently, $F tilde.equiv plus.o.big_(i in I) ZZ$.
+
+*Universal property*: any function $f: B -> A$ (into any abelian group $A$) extends uniquely to a homomorphism $hat(f): F -> A$.'''
+
+[[cards]]
+id = "5a6b7c8d-5555-4abc-8abc-000000000027"
+front = "State the theorem on subgroups of free abelian groups."
+back = '''
+Every subgroup $H$ of a free abelian group $F$ of rank $n$ is itself free abelian of rank $m lt.eq n$.
+
+Moreover, there exists a basis $\{y_1, dots, y_n\}$ of $F$ and positive integers $d_1 mid d_2 mid dots.c mid d_m$ such that $\{d_1 y_1, dots, d_m y_m\}$ is a basis for $H$.'''
+
+[[cards]]
+id = "5a6b7c8d-5555-4abc-8abc-000000000028"
+front = "What is Smith Normal Form and how is it used?"
+back = '''
+Any $m times n$ integer matrix $A$ can be reduced by integer row and column operations to
+$ D = "diag"(d_1, d_2, dots, d_r, 0, dots, 0) $
+with $d_1 mid d_2 mid dots.c mid d_r > 0$.
+
+Used to prove the subgroup theorem: write generators of $H lt.eq F$ as a matrix, apply SNF to simultaneously change bases of $F$ and $H$.'''
+
+[[cards]]
+id = "5a6b7c8d-5555-4abc-8abc-000000000029"
+front = "State the Fundamental Theorem of Finitely Generated Abelian Groups."
+back = '''
+Every finitely generated abelian group $G$ is isomorphic to
+$ G tilde.equiv ZZ^r plus.o ZZ_(d_1) plus.o ZZ_(d_2) plus.o dots.c plus.o ZZ_(d_t) $
+where $r gt.eq 0$ and $d_1 mid d_2 mid dots.c mid d_t gt.eq 2$.
+
+The *free rank* $r$ and the *invariant factors* $d_1, dots, d_t$ are uniquely determined by $G$.'''
+
+[[cards]]
+id = "5a6b7c8d-5555-4abc-8abc-000000000030"
+front = "What is the primary decomposition of a finitely generated abelian group?"
+back = '''
+Each invariant factor $ZZ_(d_i)$ decomposes via the Chinese Remainder Theorem into primary cyclic groups:
+$ G tilde.equiv ZZ^r plus.o plus.o.big_p plus.o.big_k ZZ_(p^(a_(p,k))) $
+
+This is the *primary decomposition* — an equivalent form of the fundamental theorem.'''
+
+[[cards]]
+id = "5a6b7c8d-5555-4abc-8abc-000000000031"
+front = "What is a reduced word? What is the free group $F(A)$?"
+back = '''
+A *word* on $A$ is a finite sequence in $A union A^(-1)$. A word is *reduced* if it contains no consecutive $a a^(-1)$ or $a^(-1) a$.
+
+The *free group* $F(A)$ is the group of reduced words under concatenation-and-reduction.
+
+$F(\{a\}) tilde.equiv ZZ$; $F(A)$ is non-abelian for $|A| gt.eq 2$.'''
+
+[[cards]]
+id = "5a6b7c8d-5555-4abc-8abc-000000000032"
+front = "What is the universal property of the free group $F(A)$?"
+back = '''
+For any group $G$ and any function $f: A -> G$, there is a unique group homomorphism $hat(f): F(A) -> G$ extending $f$.
+
+*Consequence*: every group is a quotient of a free group (map $F(A) -> G$ surjectively for any generating set $A$).
+
+*Nielsen-Schreier*: every subgroup of a free group is free.'''
+
+[[cards]]
+id = "5a6b7c8d-5555-4abc-8abc-000000000033"
+front = "What is a group presentation $chevron.l A mid R chevron.r$?"
+back = '''
+A presentation $G = chevron.l A mid R chevron.r$ has generators $A$ and relators $R subset F(A)$ (words that equal $e$ in $G$).
+
+$ G tilde.equiv F(A) \/ N(R) $
+
+where $N(R)$ is the normal closure of $R$.
+
+Examples: $ZZ_n = chevron.l a mid a^n chevron.r$, $D_n = chevron.l r, s mid r^n, s^2, s r s^(-1) r chevron.r$.'''
+
+[[cards]]
+id = "5a6b7c8d-5555-4abc-8abc-000000000034"
+front = "State Von Dyck's Theorem."
+back = '''
+If $G = chevron.l A mid R chevron.r$ and $H$ is a group with a map $A -> H$ satisfying all relations in $R$, then there is a unique *surjective* homomorphism $G -> H$.
+
+Use: to prove $G tilde.equiv H$, show each is a quotient of the other (find surjections in both directions and compare orders/structure).'''
+
+[[cards]]
+id = "5a6b7c8d-5555-4abc-8abc-000000000035"
+front = "What are Tietze transformations?"
+back = '''
+Two presentations give isomorphic groups iff one is obtainable from the other by:
+1. Add a generator $c$ and relation $c = w$ (where $w$ is an existing word)
+2. Remove a generator $c$ if a relation $c = w$ exists
+3. Add a consequence relation
+4. Remove a relation that follows from others'''
+
+[[cards]]
+id = "5a6b7c8d-5555-4abc-8abc-000000000036"
+front = "What is the word problem for group presentations?"
+back = '''
+Given $G = chevron.l A mid R chevron.r$, the *word problem* asks: is there an algorithm to decide whether a given word in $A union A^(-1)$ represents $e$ in $G$?
+
+In general this is *undecidable* (Novikov, 1955), though it is decidable for many specific classes such as free groups and finite groups.'''
+
+[[cards]]
+id = "5a6b7c8d-5555-4abc-8abc-000000000037"
+front = "What is the abelianisation of a group and how is it computed from a presentation?"
+back = '''
+The *abelianisation* of $G$ is $G^"ab" = G \/ [G, G]$ — the largest abelian quotient.
+
+From a presentation $G = chevron.l A mid R chevron.r$, add all commutator relations:
+$ G^"ab" = chevron.l A mid R union \{[a_i, a_j] mid a_i, a_j in A\} chevron.r. $'''
+
+[[cards]]
+id = "5a6b7c8d-5555-4abc-8abc-000000000038"
+front = "What are the groups of order 6?"
+back = '''
+$|G| = 6 = 2 dot.c 3$. By Sylow: $n_3 = 1$, so $P_3 triangle.l G$ with $P_3 tilde.equiv ZZ_3$; $n_2 in \{1, 3\}$.
+
+- If $n_2 = 1$: $G tilde.equiv ZZ_2 times ZZ_3 tilde.equiv ZZ_6$ (cyclic)
+- If $n_2 = 3$: $G tilde.equiv S_3$ (non-abelian)
+
+So there are exactly two groups of order 6 up to isomorphism.'''
